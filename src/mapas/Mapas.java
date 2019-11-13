@@ -8,6 +8,7 @@ package mapas;
 import java.awt.geom.Point2D;
 import mapas.graphs.Graph;
 import mapas.graphs.Vertex;
+import mapas.view.View;
 
 /**
  *
@@ -21,10 +22,10 @@ public class Mapas {
     public static void main(String[] args) {
         Graph<Integer,Integer> g1 = new Graph<>();
         g1.add(new Vertex<>(1,new Point2D.Float(30,20)));
-        g1.add(new Vertex<>(2,new Point2D.Float(40,20)));
-        g1.add(new Vertex<>(3,new Point2D.Float(50,20)));
-        g1.add(new Vertex<>(4,new Point2D.Float(60,20)));
-        g1.add(new Vertex<>(5,new Point2D.Float(70,20)));
+        g1.add(new Vertex<>(2,new Point2D.Float(400,20)));
+        g1.add(new Vertex<>(3,new Point2D.Float(30,300)));
+        g1.add(new Vertex<>(4,new Point2D.Float(400,300)));
+        g1.add(new Vertex<>(5,new Point2D.Float(700,180)));
         
         g1.add(1, 4, 32);
         g1.add(1, 2, 2);
@@ -33,8 +34,12 @@ public class Mapas {
         g1.add(4, 5, 52);
         g1.add(4, 2, 52);
         g1.add(5, 2, 36);
+        g1.add(3, 2, 36);
         
         System.out.println(g1.toString());
+        View view = new View();
+        view.setGraph(g1);
+        view.setVisible(true);
     }
     
 }
