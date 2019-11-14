@@ -38,8 +38,6 @@ public class Graph<V, E> {
     private static final int MX = 6;
     private int px = 0;
     private Point2D.Float df = new Point2D.Float(0, 0);
-    private List<Vertex<V>> vertex;
-    private List<Edge<V, E>> edges;
     private List<Vertex<V>> verticesQuemados;
     private final List<Edge<V, E>> aristasQuemadas;
     private int cantV;
@@ -47,17 +45,15 @@ public class Graph<V, E> {
     public Graph() {
         verticesQuemados = new SimpleLinkedList<>();
         aristasQuemadas = new SimpleLinkedList<>();
-        vertex = verticesQuemados;
-        edges = aristasQuemadas;
     }
 
     public void add(Vertex<V> v) {
-        this.vertex.addLast(v);
+        this.verticesQuemados.addLast(v);
         cantV++;
     }
 
     public void add(Edge<V, E> e) {
-        this.edges.addLast(e);
+        this.aristasQuemadas.addLast(e);
     }
 
     public void add(V h, V t, E info) {
@@ -68,13 +64,13 @@ public class Graph<V, E> {
         if (head == null || tail == null) {
             throw new NullPointerException("No existe Vertice");
         }
-        edges.addLast(new Edge<>(tail, head, info));
+        this.aristasQuemadas.addLast(new Edge<>(tail, head, info));
     }
 
     public int[][] ParseMatrizAdy() {
         int cantidad = this.cantV;
         Iterator<Edge<V, E>> edgeIterator;
-        Iterator<Vertex<V>> vertexIterator = vertex.getIterator();
+        Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
         Vertex<V> vertexAux;
         Edge<V, E> edgeAux;
         int[][] matrizAdy = new int[cantidad][cantidad];
@@ -105,7 +101,7 @@ public class Graph<V, E> {
     }
 
     public void setVertex(List<Vertex<V>> vertex) {
-        this.vertex = vertex;
+        //this.vertex = vertex;
     }
 
     public List<Edge<V, E>> getEdges() {
@@ -113,7 +109,7 @@ public class Graph<V, E> {
     }
 
     public void setEdges(List<Edge<V, E>> edges) {
-        this.edges = edges;
+        //this.aristasQuemadas = edges;
     }
 
     public Vertex<V> getVertex(V info) { //BUSCA EL VERTICE QUE CONTIENE EL PARAMETRO DADO, SINO DEVUELVE NULL
@@ -455,7 +451,7 @@ public class Graph<V, E> {
             fichero = new FileWriter("src/aristas.txt");
             pw = new PrintWriter(fichero);
 
-            Iterator<Edge<V, E>> i = edges.getIterator();
+            Iterator<Edge<V, E>> i = this.aristasQuemadas.getIterator();
             while (i.hasNext()) {
                 Edge<V, E> e = i.getNext();
 
@@ -482,7 +478,7 @@ public class Graph<V, E> {
             fichero = new FileWriter("src/vertices.txt");
             pw = new PrintWriter(fichero);
 
-            Iterator<Vertex<V>> j = vertex.getIterator();
+            Iterator<Vertex<V>> j = this.verticesQuemados.getIterator();
 
             while (j.hasNext()) {
                 Vertex<V> v = j.getNext();

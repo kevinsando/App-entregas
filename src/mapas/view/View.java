@@ -103,6 +103,7 @@ public class View extends javax.swing.JFrame implements Observer {
         System.out.print(evt.getPoint().toString() + "\n");
     }//GEN-LAST:event_graphPanelMouseClicked
 
+    
     /**
      * @param args the command line arguments
      */
@@ -153,7 +154,10 @@ public class View extends javax.swing.JFrame implements Observer {
     Carrier c;
 
     public void addCarrier() {
-//        c = new Carrier(graph.getVertex(1), graph.getVertex(1));
+        if(graph.getVertex(1)==null){
+            System.out.println("dddddddddddddd");
+        }
+       //c = new Carrier(graph.getVertex(1), graph.getVertex(1));
     }
 
     public Graph getGraph() {
@@ -181,7 +185,7 @@ public class View extends javax.swing.JFrame implements Observer {
         if (graphCheck.isSelected()) {
             graph.paint(media);
         }
-       //c.paint((Graphics2D) media);
+       c.paint((Graphics2D) media);
         g.drawImage(bi, 0, 0, null);
     }
 //        Graphics media = map.getGraphics();
@@ -204,7 +208,7 @@ public class View extends javax.swing.JFrame implements Observer {
             public void run() {
                 while (runner == Thread.currentThread()) {
                     repaint();
-                    //graph.updateCarrier(c);
+                    graph.updateCarrier(c);
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
