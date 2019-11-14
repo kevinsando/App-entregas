@@ -148,10 +148,10 @@ public class View extends javax.swing.JFrame implements Observer {
     private Thread runner;
     Carrier c;
 
-    public void addCarrier(){
-        c= new Carrier(graph.getVertex(1),graph.getVertex(1));
+    public void addCarrier() {
+        c = new Carrier(graph.getVertex(1), graph.getVertex(1));
     }
-    
+
     public void setGraph(Graph g) {
         this.graph = g;
     }
@@ -163,13 +163,13 @@ public class View extends javax.swing.JFrame implements Observer {
 
     @Override
     public void paint(Graphics g) {
-       Graphics media = graphPanel.getGraphics();
+        Graphics media = graphPanel.getGraphics();
         super.paint(media);
         renderImage(media);
         if (graphBox.isSelected()) {
             graph.paint(media);
-            c.paint((Graphics2D)media);
         }
+        c.paint((Graphics2D) media);
         //media.drawImage(map, 0, 30, null);
     }
 //        Graphics media = map.getGraphics();
@@ -180,9 +180,6 @@ public class View extends javax.swing.JFrame implements Observer {
 //            c.paint((Graphics2D)media);
 //        }
 //        this.graphPanel.getGraphics().drawImage(map, 0, 30, null);
-    
-    
-    
 
     public void renderImage(Graphics g) {
         g.drawImage(map, 0, 30, null);
@@ -194,7 +191,7 @@ public class View extends javax.swing.JFrame implements Observer {
             public void run() {
                 while (runner == Thread.currentThread()) {
                     repaint();
-                    graph.updateMarker(c);
+                    graph.updateCarrier(c);
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
