@@ -15,6 +15,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,6 +31,7 @@ import lists.SimpleLinkedList;
  * @author Jason
  */
 public class Graph<V, E> {
+
     private static final double[] W = {0.2, 0.4, 0.6, 0.8, 1.0};
     private static final int DX = 72;
     private static final int DY = 64;
@@ -44,7 +46,7 @@ public class Graph<V, E> {
 
     public Graph() {
         verticesQuemados = new SimpleLinkedList<>();
-        aristasQuemadas= new SimpleLinkedList<>();
+        aristasQuemadas = new SimpleLinkedList<>();
         vertex = verticesQuemados;
         edges = aristasQuemadas;
     }
@@ -83,19 +85,20 @@ public class Graph<V, E> {
                 matrizAdy[i][j] = 0;
             }
         }
-          // matrizAdy[i][j] = ((Integer) this.getEdges().get(i).getInfo()) + (this.getEdges().get(j).getHead().getDistancia(this.getEdges().get(j).getTail()));
-             while (vertexIterator.hasNext()) {
+        // matrizAdy[i][j] = ((Integer) this.getEdges().get(i).getInfo()) + (this.getEdges().get(j).getHead().getDistancia(this.getEdges().get(j).getTail()));
+        while (vertexIterator.hasNext()) {
             vertexAux = vertexIterator.getNext();
-           // s.append("[" + vertexAux.getInfo() + "] -->");
+            // s.append("[" + vertexAux.getInfo() + "] -->");
             edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
             while (edgeIterator.hasNext()) {
                 edgeAux = edgeIterator.getNext();
-                matrizAdy[(Integer)vertexAux.getInfo()-1][(Integer)edgeAux.getHead().getInfo()-1]=(int) ((Integer)edgeAux.getInfo()+edgeAux.getHead().getDistancia(vertexAux));
-               // s.append(edgeAux.getHead().getInfo()+" Peso("+edgeAux.getInfo()+")" + ",");
+                matrizAdy[(Integer) vertexAux.getInfo() - 1][(Integer) edgeAux.getHead().getInfo() - 1] = (int) ((Integer) edgeAux.getInfo() + edgeAux.getHead().getDistancia(vertexAux));
+                // s.append(edgeAux.getHead().getInfo()+" Peso("+edgeAux.getInfo()+")" + ",");
             }
-           // s.append("\n");
-    }        return matrizAdy;
-}
+            // s.append("\n");
+        }
+        return matrizAdy;
+    }
 
     public List<Vertex<V>> getVertex() {
         return vertex;
@@ -174,119 +177,199 @@ public class Graph<V, E> {
         }
         return s.toString();
     }
-    public Rectangle getBounds() {
-        float x0, x1, y0, y1;
-        x0 = x1 = y0 = y1 = 0f;
-        boolean f = false;
 
-        Iterator<Vertex<V>> i = verticesQuemados.getIterator();
-        while (i.hasNext()) {
-            Vertex<V> v = i.getNext();
+//    public Rectangle getBounds() {
+//        float x0, x1, y0, y1;
+//        x0 = x1 = y0 = y1 = 0f;
+//        boolean f = false;
+//
+//        Iterator<Vertex<V>> i = verticesQuemados.getIterator();
+//        while (i.hasNext()) {
+//            Vertex<V> v = i.getNext();
+//
+//            if (!f) {
+//                x0 = x1 = v.getPosition().x;
+//                y0 = y1 = v.getPosition().y;
+//            }
+//            f = true;
+//
+//            x0 = Math.min(x0, v.getPosition().x);
+//            x1 = Math.max(x1, v.getPosition().x);
+//            y0 = Math.min(y0, v.getPosition().y);
+//            y1 = Math.max(y1, v.getPosition().y);
+//        }
+//
+//        if (!f) {
+//            throw new IllegalArgumentException();
+//        }
+//
+//        Rectangle r = new Rectangle(
+//                (int) (x0), (int) (y0),
+//                (int) (x1 - x0), (int) (y1 - y0)
+//        );
+//        r.grow(S / 2, S / 2);
+//        return r;
+//    }
+//
+//    public void paint(Graphics bg, Rectangle bounds) {
+//        Graphics2D g = (Graphics2D) bg;
+//
+//        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//                RenderingHints.VALUE_ANTIALIAS_ON);
+//        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+//                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+//
+//        g.setColor(Color.GRAY);
+//        g.setStroke(TRAZO_GUIA);
+//        Rectangle b = getBounds();
+//        g.drawRect(b.x, b.y, b.width, b.height);
+//
+//        g.setFont(TIPO_BASE);
+//        FontMetrics fm = g.getFontMetrics();
+//        g.setStroke(TRAZO_BASE);
+//
+//        Iterator<Edge<V, E>> i = aristasQuemadas.getIterator();
+//        while (i.hasNext()) {
+//            Edge<V, E> e = i.getNext();
+//           // System.out.println("aristas: " + e.toString());
+//            double r = e.getWeight();
+//            int p = 0;
+//            while (r > W[p]) {
+//                p++;
+//            }
+//            g.setColor(EDGE_COLOR[p]);
+//
+//            g.drawLine(
+//                    (int) e.getTail().getPosition().x,
+//                    (int) e.getTail().getPosition().y,
+//                    (int) e.getHead().getPosition().x,
+//                    (int) e.getHead().getPosition().y
+//            );
+//        }
+//
+//        Iterator<Vertex<V>> j = verticesQuemados.getIterator();
+//        while (j.hasNext()) {
+//            Vertex<V> v = j.getNext();
+//           // System.out.println("vertices: " + v.toString());
+//            g.setColor(Color.DARK_GRAY);
+//            g.fillOval(
+//                    (int) v.getPosition().x - S / 2 + 4,
+//                    (int) v.getPosition().y - S / 2 + 4,
+//                    S, S);
+//            g.setColor(Color.DARK_GRAY);
+//            g.fillOval(
+//                    (int) v.getPosition().x - S / 2,
+//                    (int) v.getPosition().y - S / 2,
+//                    S, S);
+//            g.setColor(Color.LIGHT_GRAY);
+//            g.drawOval(
+//                    (int) v.getPosition().x - S / 2,
+//                    (int) v.getPosition().y - S / 2,
+//                    S, S);
+//
+//            String t = String.format("%s", v.getInfo());
+//            g.setColor(Color.WHITE);
+//            g.drawString(t,
+//                    v.getPosition().x - fm.stringWidth(t) / 2,
+//                    v.getPosition().y + fm.getAscent() / 2);
+//        }
+//    }
+//     private static final float[] DASHES = {4f, 4f};
+//    private static final Stroke TRAZO_BASE = new BasicStroke(2f);
+//    private static final Stroke TRAZO_GUIA
+//            = new BasicStroke(1.0f,
+//                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+//                    0f, DASHES, 0f);
+//    private static final Font TIPO_BASE
+//            = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
+//    private static final int S = 48;
+//
+//    private static final Color[] EDGE_COLOR = {
+//        new Color(96, 96, 255),
+//        new Color(96, 255, 0),
+//        new Color(170, 255, 0),
+//        Color.ORANGE,
+//        new Color(255, 96, 0)
+//    };
+    public void paint(Graphics g) {
+        Graphics2D media = (Graphics2D) g;
+        Iterator<Edge<V, E>> edgeIterator;
+        Iterator<Vertex<V>> vertexIterator = vertex.getIterator();
+        Vertex<V> vertexAux;
+        Edge<V, E> edgeAux;
+        while (vertexIterator.hasNext()) {
+            vertexAux = vertexIterator.getNext();
+            edgeIterator = getEdges(vertexAux.getInfo()).getIterator();
 
-            if (!f) {
-                x0 = x1 = v.getPosition().x;
-                y0 = y1 = v.getPosition().y;
+            while (edgeIterator.hasNext()) {
+                edgeAux = edgeIterator.getNext();
+                media.setStroke(new BasicStroke(3f));
+                media.setColor(Color.blue);
+                media.drawLine((int) edgeAux.getTail().getPosition().getX(),
+                        (int) edgeAux.getTail().getPosition().getY(),
+                        (int) edgeAux.getHead().getPosition().getX(),
+                        (int) edgeAux.getHead().getPosition().getY() - 6);
+                drawArrowHead(media, (int) edgeAux.getTail().getPosition().getX(),
+                        (int) edgeAux.getTail().getPosition().getY(),
+                        (int) edgeAux.getHead().getPosition().getX(),
+                        (int) edgeAux.getHead().getPosition().getY() - 10, Color.blue);
+
             }
-            f = true;
+            media.setStroke(new BasicStroke(4f));
+            media.setColor(Color.lightGray);
 
-            x0 = Math.min(x0, v.getPosition().x);
-            x1 = Math.max(x1, v.getPosition().x);
-            y0 = Math.min(y0, v.getPosition().y);
-            y1 = Math.max(y1, v.getPosition().y);
+            //media.fillOval((int) vertexAux.getPosition().x - 5, (int) vertexAux.getPosition().y - 10, 20, 20);
+            media.setFont(new Font("Arial Black", 0, 20));
+            media.setColor(Color.black);
+            media.drawString(vertexAux.getInfo().toString(), (int) vertexAux.getPosition().getX(), (int) vertexAux.getPosition().getY() + 5);
         }
 
-        if (!f) {
-            throw new IllegalArgumentException();
-        }
-
-        Rectangle r = new Rectangle(
-                (int) (x0), (int) (y0),
-                (int) (x1 - x0), (int) (y1 - y0)
-        );
-        r.grow(S / 2, S / 2);
-        return r;
     }
 
-    public void paint(Graphics bg, Rectangle bounds) {
-        Graphics2D g = (Graphics2D) bg;
-
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-        g.setColor(Color.GRAY);
-        g.setStroke(TRAZO_GUIA);
-        Rectangle b = getBounds();
-        g.drawRect(b.x, b.y, b.width, b.height);
-
-        g.setFont(TIPO_BASE);
-        FontMetrics fm = g.getFontMetrics();
-        g.setStroke(TRAZO_BASE);
-
-        Iterator<Edge<V, E>> i = aristasQuemadas.getIterator();
-        while (i.hasNext()) {
-            Edge<V, E> e = i.getNext();
-           // System.out.println("aristas: " + e.toString());
-            double r = e.getWeight();
-            int p = 0;
-            while (r > W[p]) {
-                p++;
-            }
-            g.setColor(EDGE_COLOR[p]);
-
-            g.drawLine(
-                    (int) e.getTail().getPosition().x,
-                    (int) e.getTail().getPosition().y,
-                    (int) e.getHead().getPosition().x,
-                    (int) e.getHead().getPosition().y
-            );
-        }
-
-        Iterator<Vertex<V>> j = verticesQuemados.getIterator();
-        while (j.hasNext()) {
-            Vertex<V> v = j.getNext();
-           // System.out.println("vertices: " + v.toString());
-            g.setColor(Color.DARK_GRAY);
-            g.fillOval(
-                    (int) v.getPosition().x - S / 2 + 4,
-                    (int) v.getPosition().y - S / 2 + 4,
-                    S, S);
-            g.setColor(Color.DARK_GRAY);
-            g.fillOval(
-                    (int) v.getPosition().x - S / 2,
-                    (int) v.getPosition().y - S / 2,
-                    S, S);
-            g.setColor(Color.LIGHT_GRAY);
-            g.drawOval(
-                    (int) v.getPosition().x - S / 2,
-                    (int) v.getPosition().y - S / 2,
-                    S, S);
-
-            String t = String.format("%s", v.getInfo());
-            g.setColor(Color.WHITE);
-            g.drawString(t,
-                    v.getPosition().x - fm.stringWidth(t) / 2,
-                    v.getPosition().y + fm.getAscent() / 2);
+    private void drawArrowHead(Graphics2D g2, int x1, int y1, int x2, int y2, Color color) {
+        double phi = Math.toRadians(40);
+        int barb = 15;
+        g2.setPaint(color);
+        double dy = y2 - y1;
+        double dx = x2 - x1;
+        double theta = Math.atan2(dy, dx);
+        double x, y, rho = theta + phi;
+        for (int j = 0; j < 2; j++) {
+            x = x2 - barb * Math.cos(rho);
+            y = y2 - barb * Math.sin(rho);
+            g2.draw(new Line2D.Double(x2, y2, x, y));
+            rho = theta - phi;
         }
     }
-     private static final float[] DASHES = {4f, 4f};
-    private static final Stroke TRAZO_BASE = new BasicStroke(2f);
-    private static final Stroke TRAZO_GUIA
-            = new BasicStroke(1.0f,
-                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-                    0f, DASHES, 0f);
-    private static final Font TIPO_BASE
-            = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
-    private static final int S = 48;
 
-    private static final Color[] EDGE_COLOR = {
-        new Color(96, 96, 255),
-        new Color(96, 255, 0),
-        new Color(170, 255, 0),
-        Color.ORANGE,
-        new Color(255, 96, 0)
-    };
+    public void updateMarker(Carrier m) {
+        if (m.isMoving()) {
+            m.move();
+        } else {
+            synchronized (Graph.this) {
+                Vertex<V> v0 = m.getEndVertex();
+                Iterator<Edge<V, E>> edges = getEdges(v0.getInfo()).getIterator();
+                List<Vertex<V>> list = new SimpleLinkedList<>();
+                while (edges.hasNext()) {
+                    list.addLast(edges.getNext().getHead());
+                }
+
+                // Se define el criterio para seleccionar
+                // el siguiente vértice.
+                Vertex<V> v1 = list.getLast();////////////////usar metodo para elegir
+                if (v1 == null) {
+                    m.setMoving(false);
+                } else {
+                    m.setStartVertex(v0);
+                    m.setEndVertex(v1);
+                    m.recalculateVelocity();
+                    m.start();
+                }
+
+            }
+        }
+    }
+
     public void guardarAristas() {
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -313,7 +396,6 @@ public class Graph<V, E> {
             }
         }
     }
-    
 
     public void guardarVertices() {
         FileWriter fichero = null;
@@ -341,6 +423,7 @@ public class Graph<V, E> {
             }
         }
     }
+
     public void leerVertices() {
         File archivo = null;
         FileReader fr = null;
@@ -356,16 +439,15 @@ public class Graph<V, E> {
             String pos;
 
             while ((linea = br.readLine()) != null) {
-               // System.out.println("Linea vertice: " + linea);
+                // System.out.println("Linea vertice: " + linea);
                 String aDividir = linea;
                 String parts[] = aDividir.split(",");
 
-              //  System.out.println("Parte 1: " + parts[0].toString());
-               // System.out.println("Parte 2: " + parts[1].toString());
-               // System.out.println("Parte 3: " + parts[2].toString());
-                
+                //  System.out.println("Parte 1: " + parts[0].toString());
+                // System.out.println("Parte 2: " + parts[1].toString());
+                // System.out.println("Parte 3: " + parts[2].toString());
                 Vertex vertice = new Vertex(parts[0].toString());
-                vertice.setPosiciones(Float.parseFloat(parts[1].toString()), (float)Integer.parseInt(parts[2].toString()));
+                vertice.setPosiciones(Float.parseFloat(parts[1].toString()), (float) Integer.parseInt(parts[2].toString()));
                 verticesQuemados.addLast(vertice);
             }
 
@@ -382,9 +464,9 @@ public class Graph<V, E> {
         }
 
     }
-    
-    public void leerAristas(){
-         File archivo = null;
+
+    public void leerAristas() {
+        File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
 
@@ -399,23 +481,20 @@ public class Graph<V, E> {
                 String aDividir = linea;
                 String parts[] = aDividir.split(",");
 
-              //  System.out.println("Info 1: " + parts[0].toString());
-              //  System.out.println("x    1: " + parts[1].toString());
-              //  System.out.println("y    1: " + parts[2].toString());
-                
-              //  System.out.println("Info 2: " + parts[3].toString());
-              //  System.out.println("x    2: " + parts[4].toString());
-               // System.out.println("y    2: " + parts[5].toString());
-                
-              //  System.out.println("Info A: " + parts[6].toString());
-                
+                //  System.out.println("Info 1: " + parts[0].toString());
+                //  System.out.println("x    1: " + parts[1].toString());
+                //  System.out.println("y    1: " + parts[2].toString());
+                //  System.out.println("Info 2: " + parts[3].toString());
+                //  System.out.println("x    2: " + parts[4].toString());
+                // System.out.println("y    2: " + parts[5].toString());
+                //  System.out.println("Info A: " + parts[6].toString());
                 Vertex tail = new Vertex(parts[0].toString());
                 tail.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
-                
+
                 Vertex head = new Vertex(parts[0].toString());
-                head.setPosiciones(Float.parseFloat(parts[1].toString()),Float.parseFloat(parts[2].toString()));
-                
-                Edge arista = new Edge(tail,head,Double.parseDouble(parts[6].toString()));
+                head.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
+
+                Edge arista = new Edge(tail, head, Double.parseDouble(parts[6].toString()));
                 aristasQuemadas.addLast(arista);
             }
 
