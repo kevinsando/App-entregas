@@ -154,7 +154,7 @@ public class View extends javax.swing.JFrame implements Observer {
     Carrier c;
 
     public void addCarrier() {
-       c = new Carrier(graph.getVertex("1"), graph.getVertex("1"));
+       c = new Carrier(graph.getVertex("33"), graph.getVertex("35"));
     }
 
     public Graph getGraph() {
