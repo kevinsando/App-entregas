@@ -81,8 +81,12 @@ public class Graph<V, E> {
         for (int i = 0; i < cantidad; i++) {
 
             for (int j = 0; j < cantidad; j++) {
-
+                if(i==j)
                 matrizAdy[i][j] = 0;
+                else
+                {
+                    matrizAdy[i][j]=1000;
+                }
             }
         }
         while (vertexIterator.hasNext()) {
@@ -163,11 +167,89 @@ public class Graph<V, E> {
         return s.toString();
     }
 
+    public String algoritmoFloyd(int[][] grafo) {
+        int vertices = grafo.length;
+        int matrizAdy[][] = grafo;
+        String caminos[][] = new String[vertices][vertices];
+        String caminosAuxiliares[][] = new String[vertices][vertices];
+        String caminoRecorrido = "", cadena = "", caminitos = "";
+        int temporal1, temporal2, temporal3, temporal4, minimo;
+        //INICIALIZANDO MATRICES
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                caminos[i][j] = "";
+                caminosAuxiliares[i][j] = "";
+            }
+        }
+        for (int k = 0; k < vertices; k++) {
+            for (int i = 0; i < vertices; i++) {
+                for (int j = 0; j < vertices; j++) {
+                    temporal1 = matrizAdy[i][j];
+                    temporal2 = matrizAdy[i][k];
+                    temporal3 = matrizAdy[k][j];
+                    temporal4 = temporal2 + temporal3;
+
+                    //Encuentra minimo
+                    minimo = Math.min(temporal1, temporal4);
+                    if (temporal1 != temporal4) {
+                        if (minimo == temporal4) {
+                            caminoRecorrido = "";
+                            caminosAuxiliares[i][j] = k + "";
+                            caminos[i][j] = caminosR(i, k, caminosAuxiliares, caminoRecorrido) + (k + 1);
+
+                        }
+                    }
+                    matrizAdy[i][j] = minimo;
+                }
+            }
+        }
+        //AGREGANDO EL CAMINO MIN A CADENA
+
+        for (int i = 0; i < vertices; i++) {
+            cadena+=""+(i+1)+" ";
+            for (int j = 0; j < vertices; j++) {
+                cadena = cadena + "[" + matrizAdy[i][j] + "]";
+            }
+            cadena = cadena + "\n";
+        }
+        //LOGIC
+
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (matrizAdy[i][j] != 1000)//nuestro infinito
+                {
+                    if (i != j)//no son el mismo nodo
+                    {
+                        if (caminos[i][j].equals("")) {
+                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
+                        } else {
+                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
+                        }
+                    }
+                }
+            }
+        }
+        return "La matriz de caminos mas cortos entre los diferentes vertices es:\n" + cadena
+                + "\nLos diferentes caminos mas cortos entre vertices son:\n" + caminitos;
+    }
+
+    private String caminosR(int i, int k, String[][] caminosAuxiliares, String caminoRecorrido) {
+        if (caminosAuxiliares[i][k].equals("")) {
+            return "";
+        } else {
+            caminoRecorrido+=caminosR(i,Integer.parseInt(caminosAuxiliares[i][k].toString()),
+            caminosAuxiliares,caminoRecorrido)+(Integer.parseInt(caminosAuxiliares[i][k].toString())+1)+",";
+        }
+        return caminoRecorrido;
+    }
+
     public String toString(int[][] mat) {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
-                s.append(mat[i][j] + " ");
+              
+                    s.append(mat[i][j]).append(" ");
+                
             }
             s.append("\n");
         }
@@ -506,4 +588,5 @@ public class Graph<V, E> {
             }
         }
     }
+
 }

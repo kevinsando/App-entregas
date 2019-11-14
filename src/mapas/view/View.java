@@ -7,11 +7,14 @@ package mapas.view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import mapas.graphs.Carrier;
 import mapas.graphs.Graph;
 
@@ -21,16 +24,23 @@ import mapas.graphs.Graph;
  */
 public class View extends javax.swing.JFrame implements Observer {
 
+    private BufferedImage bi;
+
     /**
      * Creates new form View
      */
     public View() {
         initComponents();
-        try {
-            map = ImageIO.read(getClass().getResourceAsStream("map.png"));
-        } catch (IOException ex) {
+        bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        }
+        graphPanel = new JPanel() {
+            @Override
+            public void paint(java.awt.Graphics g) {
+                g.drawImage(map, 0, 0, this);
+                graphBox.setVisible(true);
+            }
+        };
+        this.setContentPane(graphPanel);
     }
 
     /**
@@ -42,10 +52,22 @@ public class View extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        graphPanel = new javax.swing.JPanel();
         graphBox = new javax.swing.JCheckBox();
+        graphPanel = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        graphBox.setText("Draw graph");
+        graphBox.setBorderPainted(true);
+        graphBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(graphBox, java.awt.BorderLayout.CENTER);
 
         graphPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -57,39 +79,22 @@ public class View extends javax.swing.JFrame implements Observer {
         graphPanel.setLayout(graphPanelLayout);
         graphPanelLayout.setHorizontalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGap(0, 1069, Short.MAX_VALUE)
         );
         graphPanelLayout.setVerticalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 686, Short.MAX_VALUE)
         );
 
-        graphBox.setSelected(true);
-        graphBox.setText("Draw graph");
-        graphBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graphBoxActionPerformed(evt);
-            }
-        });
+        getContentPane().add(graphPanel, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(graphBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
-                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(graphBox)
-                .addContainerGap(694, Short.MAX_VALUE))
-        );
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -141,15 +146,22 @@ public class View extends javax.swing.JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox graphBox;
     private javax.swing.JPanel graphPanel;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 
     Graph graph;
-    BufferedImage map;
+    Image map;
     private Thread runner;
     Carrier c;
 
     public void addCarrier() {
         c = new Carrier(graph.getVertex(1), graph.getVertex(1));
+    }
+
+    public Graph getGraph() {
+        return graph;
     }
 
     public void setGraph(Graph g) {
@@ -160,19 +172,19 @@ public class View extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
-        super.repaint();
+        repaint();
     }
 
     @Override
     public void paint(Graphics g) {
-        Graphics media = graphPanel.getGraphics();
+        Graphics media = bi.getGraphics();
         super.paint(media);
-        renderImage(media);
+        loadImages();
         if (graphBox.isSelected()) {
             graph.paint(media);
         }
         c.paint((Graphics2D) media);
-        //media.drawImage(map, 0, 30, null);
+        g.drawImage(bi, 0, 0, null);
     }
 //        Graphics media = map.getGraphics();
 //        super.paint(media);
@@ -183,8 +195,9 @@ public class View extends javax.swing.JFrame implements Observer {
 //        }
 //        this.graphPanel.getGraphics().drawImage(map, 0, 30, null);
 
-    public void renderImage(Graphics g) {
-        g.drawImage(map, 0, 30, null);
+    public void loadImages() {
+        ImageIcon iih = new ImageIcon("src/mapas/view/map.png");
+        map = iih.getImage();
     }
 
     public void init() {
@@ -203,6 +216,14 @@ public class View extends javax.swing.JFrame implements Observer {
 
         };
         runner.start();
+    }
+
+    public Carrier getC() {
+        return c;
+    }
+
+    public void setC(Carrier c) {
+        this.c = c;
     }
 
 }
