@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapas.graphs;
 
-/**
- *
- * @author Jason
- */
 public class Edge<V,E>{
+    
     private Vertex<V> head;
     private Vertex<V> tail;
     private E info;
@@ -42,6 +34,19 @@ public class Edge<V,E>{
 
     public void setInfo(E info) {
         this.info = info;
+    }
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s", getTail(), getHead(), getInfo());
+    }
+        public double getWeight() {
+        double r = 0.0;
+        try {
+            r = (Double) getInfo();
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return r;
     }
     
     

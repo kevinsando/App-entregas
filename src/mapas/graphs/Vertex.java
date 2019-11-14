@@ -12,12 +12,16 @@ import java.awt.geom.Point2D;
  * @author Jason
  */
 public class Vertex<V> {
+
     private V info;
     private Point2D.Float position;
-    
-    public Vertex(V info,Point2D.Float pos){
-        this.info=info;
+
+    public Vertex(V info, Point2D.Float pos) {
+        this.info = info;
         this.position = pos;
+    }
+    public Vertex(V info) {
+        this(info, new Point2D.Float(0f, 0f));
     }
 
     public V getInfo() {
@@ -35,11 +39,20 @@ public class Vertex<V> {
     public void setPosition(Point2D.Float position) {
         this.position = position;
     }
-    public double getDistancia(Vertex<V> v)
-    {
-        double cateto1=position.getX()-v.getPosition().getX();
-        double cateto2=position.getY()-v.getPosition().getY();
-        double hipotenusa=Math.sqrt(cateto1*cateto1+cateto2*cateto2);
+
+    public double getDistancia(Vertex<V> v) {
+        double cateto1 = position.getX() - v.getPosition().getX();
+        double cateto2 = position.getY() - v.getPosition().getY();
+        double hipotenusa = Math.sqrt(cateto1 * cateto1 + cateto2 * cateto2);
         return hipotenusa;
+    }
+    public void setPosiciones(float x, float y){
+        this.position.setLocation(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s,%4.2f,%4.2f",
+                getInfo(), getPosition().getX(), getPosition().getY());
     }
 }

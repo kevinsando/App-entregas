@@ -46,8 +46,7 @@ public class Mapas {
         System.out.println("Tamaño: " + g1.size());
         System.out.println(g1.toString());
         System.out.println(g1.toString(g1.ParseMatrizAdy()));
-        View view = new View();
-        view.setGraph(g1);
+        View view = new View(g1);
         view.setVisible(true);
     }
 
