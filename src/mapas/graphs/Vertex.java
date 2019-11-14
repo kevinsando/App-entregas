@@ -35,4 +35,11 @@ public class Vertex<V> {
     public void setPosition(Point2D.Float position) {
         this.position = position;
     }
+    public double getDistancia(Vertex<V> v)
+    {
+        double cateto1=position.getX()-v.getPosition().getX();
+        double cateto2=position.getY()-v.getPosition().getY();
+        double hipotenusa=Math.sqrt(cateto1*cateto1+cateto2*cateto2);
+        return hipotenusa;
+    }
 }

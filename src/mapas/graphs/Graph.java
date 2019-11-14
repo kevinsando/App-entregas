@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import lists.Iterator;
 import lists.List;
 import lists.SimpleLinkedList;
@@ -21,6 +22,7 @@ public class Graph<V, E> {
 
     private List<Vertex<V>> vertex;
     private List<Edge<V, E>> edges;
+    private int cantV;
 
     public Graph() {
         vertex = new SimpleLinkedList<>();
@@ -29,6 +31,7 @@ public class Graph<V, E> {
 
     public void add(Vertex<V> v) {
         this.vertex.addLast(v);
+        cantV++;
     }
 
     public void add(Edge<V, E> e) {
@@ -44,6 +47,50 @@ public class Graph<V, E> {
             throw new NullPointerException("No existe Vertice");
         }
         edges.addLast(new Edge<>(tail, head, info));
+    }
+
+    public int[][] ParseMatrizAdy() {
+        int cantidad = this.cantV;
+        Iterator<Edge<V, E>> edgeIterator;
+        Iterator<Vertex<V>> vertexIterator = vertex.getIterator();
+        Vertex<V> vertexAux;
+        Edge<V, E> edgeAux;
+        int[][] matrizAdy = new int[cantidad][cantidad];
+        for (int i = 0; i < cantidad; i++) {
+
+            for (int j = 0; j < cantidad; j++) {
+
+                matrizAdy[i][j] = 0;
+            }
+        }
+          // matrizAdy[i][j] = ((Integer) this.getEdges().get(i).getInfo()) + (this.getEdges().get(j).getHead().getDistancia(this.getEdges().get(j).getTail()));
+             while (vertexIterator.hasNext()) {
+            vertexAux = vertexIterator.getNext();
+           // s.append("[" + vertexAux.getInfo() + "] -->");
+            edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
+            while (edgeIterator.hasNext()) {
+                edgeAux = edgeIterator.getNext();
+                matrizAdy[(Integer)vertexAux.getInfo()-1][(Integer)edgeAux.getHead().getInfo()-1]=(int) ((Integer)edgeAux.getInfo()+edgeAux.getHead().getDistancia(vertexAux));
+               // s.append(edgeAux.getHead().getInfo()+" Peso("+edgeAux.getInfo()+")" + ",");
+            }
+           // s.append("\n");
+    }        return matrizAdy;
+}
+
+    public List<Vertex<V>> getVertex() {
+        return vertex;
+    }
+
+    public void setVertex(List<Vertex<V>> vertex) {
+        this.vertex = vertex;
+    }
+
+    public List<Edge<V, E>> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(List<Edge<V, E>> edges) {
+        this.edges = edges;
     }
 
     public Vertex<V> getVertex(V info) { //BUSCA EL VERTICE QUE CONTIENE EL PARAMETRO DADO, SINO DEVUELVE NULL
@@ -74,6 +121,10 @@ public class Graph<V, E> {
 
     }
 
+    public int size() {
+        return cantV;
+    }
+
     public String toString() {
         StringBuilder s = new StringBuilder();
         Iterator<Edge<V, E>> edgeIterator;
@@ -86,7 +137,18 @@ public class Graph<V, E> {
             edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
             while (edgeIterator.hasNext()) {
                 edgeAux = edgeIterator.getNext();
-                s.append(edgeAux.getHead().getInfo() + ",");
+                s.append(edgeAux.getHead().getInfo() + " Peso(" + edgeAux.getInfo() + ")" + ",");
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
+
+    public String toString(int[][] mat) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat.length; j++) {
+                s.append(mat[i][j] + " ");
             }
             s.append("\n");
         }
@@ -110,13 +172,13 @@ public class Graph<V, E> {
                 media.setStroke(new BasicStroke(3f));
                 media.setColor(Color.cyan);
                 media.drawLine(
-                        (int) edgeAux.getTail().getPosition().getX()+15,
-                        (int) edgeAux.getTail().getPosition().getY()+15,
-                        (int) edgeAux.getHead().getPosition().getX()+15,
-                        (int) edgeAux.getHead().getPosition().getY()+15);
+                        (int) edgeAux.getTail().getPosition().getX() + 15,
+                        (int) edgeAux.getTail().getPosition().getY() + 15,
+                        (int) edgeAux.getHead().getPosition().getX() + 15,
+                        (int) edgeAux.getHead().getPosition().getY() + 15);
+
             }
         }
 
     }
-
 }
