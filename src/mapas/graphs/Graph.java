@@ -101,7 +101,7 @@ public class Graph<V, E> {
     }
 
     public List<Vertex<V>> getVertex() {
-        return vertex;
+        return verticesQuemados;
     }
 
     public void setVertex(List<Vertex<V>> vertex) {
@@ -109,7 +109,7 @@ public class Graph<V, E> {
     }
 
     public List<Edge<V, E>> getEdges() {
-        return edges;
+        return aristasQuemadas;
     }
 
     public void setEdges(List<Edge<V, E>> edges) {
@@ -119,7 +119,7 @@ public class Graph<V, E> {
     public Vertex<V> getVertex(V info) { //BUSCA EL VERTICE QUE CONTIENE EL PARAMETRO DADO, SINO DEVUELVE NULL
         Vertex<V> aux;
         Vertex<V> result = null;
-        Iterator<Vertex<V>> iterator = vertex.getIterator();
+        Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
         while (iterator.hasNext()) {
             aux = iterator.getNext();
             if (aux.getInfo().equals(info)) {
@@ -132,7 +132,7 @@ public class Graph<V, E> {
 
     public List<Edge<V, E>> getEdges(V info) {//BUSCA TODOS LOS CAMINOS QUE SALEN DEL VERTICE CON EL PARAMETRO INDICADO
         SimpleLinkedList<Edge<V, E>> result = new SimpleLinkedList<>();
-        Iterator<Edge<V, E>> iterator = edges.getIterator();
+        Iterator<Edge<V, E>> iterator = aristasQuemadas.getIterator();
         Edge<V, E> aux;
         while (iterator.hasNext()) {
             aux = iterator.getNext();
@@ -151,7 +151,7 @@ public class Graph<V, E> {
     public String toString() {
         StringBuilder s = new StringBuilder();
         Iterator<Edge<V, E>> edgeIterator;
-        Iterator<Vertex<V>> vertexIterator = vertex.getIterator();
+        Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
         Vertex<V> vertexAux;
         Edge<V, E> edgeAux;
         while (vertexIterator.hasNext()) {
@@ -294,7 +294,7 @@ public class Graph<V, E> {
     public void paint(Graphics g) {
         Graphics2D media = (Graphics2D) g;
         Iterator<Edge<V, E>> edgeIterator;
-        Iterator<Vertex<V>> vertexIterator = vertex.getIterator();
+        Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
         Vertex<V> vertexAux;
         Edge<V, E> edgeAux;
         while (vertexIterator.hasNext()) {

@@ -154,6 +154,8 @@ public class View extends javax.swing.JFrame implements Observer {
 
     public void setGraph(Graph g) {
         this.graph = g;
+        g.guardarAristas();
+        g.guardarVertices();
     }
 
     @Override
