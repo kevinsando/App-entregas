@@ -85,17 +85,13 @@ public class Graph<V, E> {
                 matrizAdy[i][j] = 0;
             }
         }
-        // matrizAdy[i][j] = ((Integer) this.getEdges().get(i).getInfo()) + (this.getEdges().get(j).getHead().getDistancia(this.getEdges().get(j).getTail()));
         while (vertexIterator.hasNext()) {
             vertexAux = vertexIterator.getNext();
-            // s.append("[" + vertexAux.getInfo() + "] -->");
             edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
             while (edgeIterator.hasNext()) {
                 edgeAux = edgeIterator.getNext();
                 matrizAdy[(Integer) vertexAux.getInfo() - 1][(Integer) edgeAux.getHead().getInfo() - 1] = (int) ((Integer) edgeAux.getInfo() + edgeAux.getHead().getDistancia(vertexAux));
-                // s.append(edgeAux.getHead().getInfo()+" Peso("+edgeAux.getInfo()+")" + ",");
             }
-            // s.append("\n");
         }
         return matrizAdy;
     }
@@ -374,7 +370,7 @@ public class Graph<V, E> {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("C:\\Users\\dell\\Desktop\\mapas/aristas.txt");
+            fichero = new FileWriter("src/aristas.txt");
             pw = new PrintWriter(fichero);
 
             Iterator<Edge<V, E>> i = edges.getIterator();
@@ -401,7 +397,7 @@ public class Graph<V, E> {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("C:\\Users\\dell\\Desktop\\mapas/vertices.txt");
+            fichero = new FileWriter("src/vertices.txt");
             pw = new PrintWriter(fichero);
 
             Iterator<Vertex<V>> j = vertex.getIterator();
@@ -430,7 +426,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("C:\\Users\\dell\\Documents\\Informatica\\Estructura de Datos\\Semana 14/vertices.txt");
+            archivo = new File("src/vertices.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
@@ -471,7 +467,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("C:\\Users\\dell\\Documents\\Informatica\\Estructura de Datos\\Semana 14/aristas.txt");
+            archivo = new File("src/aristas.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 

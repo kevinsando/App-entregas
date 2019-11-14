@@ -131,7 +131,6 @@ public class Mapas {
 //        g1.add(5, 2, 36);
 //        g1.add(3, 2, 36);
         
-        System.out.println(g1.toString());
         View view = new View();
         view.setGraph(g1);
         view.addCarrier();
