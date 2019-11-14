@@ -54,6 +54,15 @@ public class Carrier<V> {
                 (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2),
                 10, 10);
     }
+    
+      public void paint2(Graphics2D g) {
+        g.setStroke(new BasicStroke(8f));
+        g.setColor(Color.green);
+        g.drawOval(
+                (int) ((startPosition.x + t * (endPosition.x - startPosition.x)) - 10 / 2),
+                (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2),
+                10, 10);
+    }
 
     public Vertex<V> getStartVertex() {
         return startVertex;

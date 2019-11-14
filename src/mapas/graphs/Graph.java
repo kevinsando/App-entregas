@@ -75,7 +75,6 @@ public class Graph<V, E> {
         Vertex<V> vertexAux;
         Edge<V, E> edgeAux;
         int[][] matrizAdy = new int[cantidad][cantidad];
-        int a;
         for (int i = 0; i < cantidad; i++) {
 
             for (int j = 0; j < cantidad; j++) {
@@ -95,9 +94,7 @@ public class Graph<V, E> {
                 System.out.println(Integer.parseInt((String) vertexAux.getInfo()) - 1);
                 System.out.println(Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1);
                 matrizAdy[Integer.parseInt((String) vertexAux.getInfo()) - 1][Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1] 
-                        = (int) (Math.round(Integer.parseInt(vertexAux.getInfo().toString()))) + edgeAux.getHead().getDistancia(vertexAux);
-                a= Math.round(Integer.parseInt(vertexAux.getInfo().toString()));
-                
+                        = (int) (Math.round(Integer.parseInt(vertexAux.getInfo().toString()))) + edgeAux.getHead().getDistancia(vertexAux);                
                 
             }
         }
@@ -234,8 +231,8 @@ public class Graph<V, E> {
                 }
             }
         }
-        return "La matriz de caminos mas cortos entre los diferentes vertices es:\n" + cadena
-                + "\nLos diferentes caminos mas cortos entre vertices son:\n" + caminitos;
+        return "La matriz de caminitos mas cortos entre los diferentes vertices es:\n" + cadena//Matriz de caminos mas cortos
+                + "\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos;
     }
 
     private String caminosR(int i, int k, String[][] caminosAuxiliares, String caminoRecorrido) {

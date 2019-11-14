@@ -23,7 +23,7 @@ public class Mapas {
         Graph<Integer, Integer> g1 = new Graph<>();
         g1.leerVertices();
         g1.leerAristas();
-        System.out.println(g1.toString());
+//        System.out.println(g1.toString());
 
 //        g1.add(new Vertex<>(1,new Point2D.Float(50,56)));
 //        g1.add(new Vertex<>(2,new Point2D.Float(50,137)));
@@ -149,8 +149,8 @@ public class Mapas {
         //1000: 
         //System.out.println("Tamaño: " + g1.size());
         //System.out.println(g1.toString());
-        System.out.println(g1.toString(g1.ParseMatrizAdy()));
-        //System.out.println("Camino mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
+//        System.out.println(g1.toString(g1.ParseMatrizAdy()));
+//        System.out.println("Caminito mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
     }
 
 }

@@ -15,6 +15,9 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import lists.Iterator;
+import lists.List;
+import lists.SimpleLinkedList;
 import mapas.graphs.Carrier;
 import mapas.graphs.Graph;
 
@@ -31,6 +34,7 @@ public class View extends javax.swing.JFrame implements Observer {
      */
     public View() {
         initComponents();
+        carriers = new SimpleLinkedList<>();
         bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         this.graphCheck.setSelected(true);
         graphPanel = new JPanel() {
@@ -38,8 +42,14 @@ public class View extends javax.swing.JFrame implements Observer {
             public void paint(java.awt.Graphics g) {
                 g.drawImage(map, 0, 0, this);
             }
+             
         };
         this.setContentPane(graphPanel);
+        graphPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                graphPanelMouseClicked(evt);
+            }
+        });
     }
 
     /**
@@ -103,7 +113,6 @@ public class View extends javax.swing.JFrame implements Observer {
         System.out.print(evt.getPoint().toString() + "\n");
     }//GEN-LAST:event_graphPanelMouseClicked
 
-    
     /**
      * @param args the command line arguments
      */
@@ -151,10 +160,33 @@ public class View extends javax.swing.JFrame implements Observer {
     Graph graph;
     Image map;
     private Thread runner;
-    Carrier c;
+    List<Carrier> carriers;
 
     public void addCarrier() {
-       c = new Carrier(graph.getVertex("33"), graph.getVertex("35"));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("27")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("28")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("36")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("1")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("2")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("3")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("4")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("5")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("6")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("7")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("8")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("9")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("10")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("11")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("12")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("13")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("14")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("15")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("16")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("17")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("18")));
+        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("19")));
+
     }
 
     public Graph getGraph() {
@@ -163,8 +195,8 @@ public class View extends javax.swing.JFrame implements Observer {
 
     public void setGraph(Graph g) {
         this.graph = g;
-       // g.leerAristas();
-       // g.leerVertices();
+        // g.leerAristas();
+        // g.leerVertices();
         //g.guardarAristas();
         //g.guardarVertices();
     }
@@ -182,7 +214,12 @@ public class View extends javax.swing.JFrame implements Observer {
         if (graphCheck.isSelected()) {
             graph.paint(media);
         }
-      c.paint((Graphics2D) media);
+        Iterator<Carrier> iteratorC = carriers.getIterator();
+        iteratorC.getNext().paint2((Graphics2D) media);
+        while (iteratorC.hasNext()) {
+            iteratorC.getNext().paint((Graphics2D) media);
+        }
+
         g.drawImage(bi, 0, 0, null);
     }
 //        Graphics media = map.getGraphics();
@@ -205,7 +242,11 @@ public class View extends javax.swing.JFrame implements Observer {
             public void run() {
                 while (runner == Thread.currentThread()) {
                     repaint();
-                    graph.updateCarrier(c);
+                    Iterator<Carrier> iteratorC = carriers.getIterator();
+                    while (iteratorC.hasNext()) {
+                        graph.updateCarrier(iteratorC.getNext());
+                    }
+
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException ex) {
@@ -217,12 +258,11 @@ public class View extends javax.swing.JFrame implements Observer {
         runner.start();
     }
 
-    public Carrier getC() {
-        return c;
-    }
-
+//    public Carrier getC() {
+//        return c;
+//    }
     public void setC(Carrier c) {
-        this.c = c;
+        //this.c = c;
     }
 
 }
