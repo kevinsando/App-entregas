@@ -525,7 +525,7 @@ public class Graph<V, E> {
                 // System.out.println("Parte 2: " + parts[1].toString());
                 // System.out.println("Parte 3: " + parts[2].toString());
                 Vertex vertice = new Vertex(parts[0].toString());
-                vertice.setPosiciones(Float.parseFloat(parts[1].toString()), (float) Integer.parseInt(parts[2].toString()));
+                vertice.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
                 verticesQuemados.addLast(vertice);
             }
 
@@ -566,13 +566,13 @@ public class Graph<V, E> {
                 //  System.out.println("x    2: " + parts[4].toString());
                 // System.out.println("y    2: " + parts[5].toString());
                 //  System.out.println("Info A: " + parts[6].toString());
-                Vertex tail = new Vertex(parts[0].toString());
-                tail.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
+                //Vertex tail = this.getVertex((V)parts[0].toString()); //new Vertex(parts[0].toString());
+                //tail.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
 
-                Vertex head = new Vertex(parts[0].toString());
-                head.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
+                //Vertex head = this.getVertex((V)parts[0].toString());//new Vertex(parts[0].toString());
+                //head.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
 
-                Edge arista = new Edge(tail, head, Double.parseDouble(parts[6].toString()));
+                Edge arista = new Edge(this.getVertex((V)parts[0].toString()), this.getVertex((V)parts[1].toString()), Double.parseDouble(parts[2].toString()));
                 aristasQuemadas.addLast(arista);
             }
 

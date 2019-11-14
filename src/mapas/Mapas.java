@@ -21,16 +21,21 @@ public class Mapas {
      */
     public static void main(String[] args) {
                 Graph<Integer,Integer> g1 = new Graph<>();
-        g1.add(new Vertex<>(1,new Point2D.Float(50,56)));
-        g1.add(new Vertex<>(2,new Point2D.Float(50,137)));
-        g1.add(new Vertex<>(3,new Point2D.Float(47,224)));
-        g1.add(new Vertex<>(4,new Point2D.Float(43,312)));
-        g1.add(new Vertex<>(5,new Point2D.Float(47,396)));
-        g1.add(new Vertex<>(6,new Point2D.Float(144,50)));
-        g1.add(new Vertex<>(7,new Point2D.Float(137,130)));
-        g1.add(new Vertex<>(8,new Point2D.Float(137,230)));
-        g1.add(new Vertex<>(9,new Point2D.Float(133,314)));
-        g1.add(new Vertex<>(10,new Point2D.Float(137,400)));
+                g1.leerVertices();
+                g1.leerAristas();
+                System.out.println(g1.toString());
+                
+
+//        g1.add(new Vertex<>(1,new Point2D.Float(50,56)));
+//        g1.add(new Vertex<>(2,new Point2D.Float(50,137)));
+//        g1.add(new Vertex<>(3,new Point2D.Float(47,224)));
+//        g1.add(new Vertex<>(4,new Point2D.Float(43,312)));
+//        g1.add(new Vertex<>(5,new Point2D.Float(47,396)));
+//        g1.add(new Vertex<>(6,new Point2D.Float(144,50)));
+//        g1.add(new Vertex<>(7,new Point2D.Float(137,130)));
+//        g1.add(new Vertex<>(8,new Point2D.Float(137,230)));
+//        g1.add(new Vertex<>(9,new Point2D.Float(133,314)));
+//        g1.add(new Vertex<>(10,new Point2D.Float(137,400)));
 //        g1.add(new Vertex<>(11,new Point2D.Float(141,490)));
 //        g1.add(new Vertex<>(12,new Point2D.Float(141,570)));
 //        g1.add(new Vertex<>(13,new Point2D.Float(141,664)));
@@ -58,31 +63,31 @@ public class Mapas {
 //        g1.add(new Vertex<>(36,new Point2D.Float(403,578)));
 //        g1.add(new Vertex<>(37,new Point2D.Float(401,668)));
 //        g1.add(new Vertex<>(31,new Point2D.Float(401,134)));
-
-        
-        g1.add(1,2,0);
-        g1.add(2,3,0);
-        g1.add(1,3,0);
-        g1.add(3,4,0);
-        g1.add(4,5,0);
-      //  g1.add(1,6,0);
-        //g1.add(7,2,0);
-       // g1.add(3,8,0);
-       // g1.add(9,4,0);
-      //  g1.add(5,10,0);
-      //  g1.add(6,7,0);
-      //  g1.add(7,8,0);
-      //  g1.add(8,9,0);
-      //  g1.add(9,10,0);
-      //  g1.add(9,11,0);
-      //  g1.add(11,12,0);
-      //  g1.add(12,13,0);
-     //   g1.add(6,14,0);
-        //g1.add(15,7,0);
-     //   g1.add(8,17,0);
-     //   g1.add(18,9,0);
-    //    g1.add(10,19,0);
-   //     g1.add(20,11,0);
+//
+//        
+//        g1.add(1,2,0);
+//        g1.add(2,3,0);
+//        g1.add(1,3,0);
+//        g1.add(3,4,0);
+//        g1.add(4,5,0);
+//        g1.add(1,6,0);
+//        g1.add(7,2,0);
+//        g1.add(3,8,0);
+//        g1.add(9,4,0);
+//        g1.add(5,10,0);
+//        g1.add(6,7,0);
+//        g1.add(7,8,0);
+//        g1.add(8,9,0);
+//        g1.add(9,10,0);
+//        g1.add(9,11,0);
+//        g1.add(11,12,0);
+//        g1.add(12,13,0);
+//        g1.add(6,14,0);
+//        g1.add(15,7,0);
+//        g1.add(8,17,0);
+//        g1.add(18,9,0);
+//        g1.add(10,19,0);
+//        g1.add(20,11,0);
 //        g1.add(12,21,0);
 //        g1.add(22,21,0);
 //        g1.add(21,20,0);
@@ -132,28 +137,27 @@ public class Mapas {
 //        g1.add(5, 2, 36);
 //        g1.add(3, 2, 36);
         
-        System.out.println(g1.toString());
         View view = new View();
         view.setGraph(g1);
         view.addCarrier();
         view.init();  //Iniciar el hilo de movimiento
-        view.setVisible(true);
+       view.setVisible(true);
         
         
-        System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(2)));
-        System.out.println("Distancia: " + g1.getVertex(2).getDistancia(g1.getVertex(3)));
-        System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(3)));
-        System.out.println("Distancia: " + g1.getVertex(3).getDistancia(g1.getVertex(4)));
-        System.out.println("Distancia: " + g1.getVertex(4).getDistancia(g1.getVertex(5)));
+        //System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(2)));
+        //System.out.println("Distancia: " + g1.getVertex(2).getDistancia(g1.getVertex(3)));
+        //System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(3)));
+        //System.out.println("Distancia: " + g1.getVertex(3).getDistancia(g1.getVertex(4)));
+        //System.out.println("Distancia: " + g1.getVertex(4).getDistancia(g1.getVertex(5)));
         //System.out.println("Distancia: " + g1.getVertex(5).getDistancia(g1.getVertex(2)));
         //System.out.println("Distancia: " + g1.getVertex(3).getDistancia(g1.getVertex(2)));
         
         //O: El mismo nodo no puede tener relación consigo mismo
         //1000: 
-        System.out.println("Tamaño: " + g1.size());
-        System.out.println(g1.toString());
-        System.out.println(g1.toString(g1.ParseMatrizAdy()));
-        System.out.println("Camino mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
+        //System.out.println("Tamaño: " + g1.size());
+        //System.out.println(g1.toString());
+        //System.out.println(g1.toString(g1.ParseMatrizAdy()));
+        //System.out.println("Camino mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
 
     }
 
