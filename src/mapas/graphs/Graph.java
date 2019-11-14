@@ -342,7 +342,7 @@ public class Graph<V, E> {
         }
     }
 
-    public void updateMarker(Carrier m) {
+    public void updateCarrier(Carrier m) {
         if (m.isMoving()) {
             m.move();
         } else {
