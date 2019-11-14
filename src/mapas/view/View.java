@@ -154,10 +154,7 @@ public class View extends javax.swing.JFrame implements Observer {
     Carrier c;
 
     public void addCarrier() {
-        if(graph.getVertex(1)==null){
-            System.out.println("dddddddddddddd");
-        }
-       //c = new Carrier(graph.getVertex(1), graph.getVertex(1));
+       c = new Carrier(graph.getVertex("1"), graph.getVertex("1"));
     }
 
     public Graph getGraph() {
@@ -185,7 +182,7 @@ public class View extends javax.swing.JFrame implements Observer {
         if (graphCheck.isSelected()) {
             graph.paint(media);
         }
-       c.paint((Graphics2D) media);
+      c.paint((Graphics2D) media);
         g.drawImage(bi, 0, 0, null);
     }
 //        Graphics media = map.getGraphics();

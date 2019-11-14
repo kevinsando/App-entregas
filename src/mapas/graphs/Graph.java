@@ -69,11 +69,13 @@ public class Graph<V, E> {
 
     public int[][] ParseMatrizAdy() {
         int cantidad = this.cantV;
+        System.out.println(this.size());
         Iterator<Edge<V, E>> edgeIterator;
         Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
         Vertex<V> vertexAux;
         Edge<V, E> edgeAux;
         int[][] matrizAdy = new int[cantidad][cantidad];
+        int a;
         for (int i = 0; i < cantidad; i++) {
 
             for (int j = 0; j < cantidad; j++) {
@@ -90,7 +92,13 @@ public class Graph<V, E> {
             edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
             while (edgeIterator.hasNext()) {
                 edgeAux = edgeIterator.getNext();
-                matrizAdy[(Integer) vertexAux.getInfo() - 1][(Integer) edgeAux.getHead().getInfo() - 1] = (int) ((Integer) edgeAux.getInfo() + edgeAux.getHead().getDistancia(vertexAux));
+                System.out.println(Integer.parseInt((String) vertexAux.getInfo()) - 1);
+                System.out.println(Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1);
+                matrizAdy[Integer.parseInt((String) vertexAux.getInfo()) - 1][Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1] 
+                        = (int) (Math.round(Integer.parseInt(vertexAux.getInfo().toString()))) + edgeAux.getHead().getDistancia(vertexAux);
+                a= Math.round(Integer.parseInt(vertexAux.getInfo().toString()));
+                
+                
             }
         }
         return matrizAdy;
@@ -118,6 +126,7 @@ public class Graph<V, E> {
         Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
         while (iterator.hasNext()) {
             aux = iterator.getNext();
+            //System.out.println("--"+aux.getInfo()+"--"+info+"--");
             if (aux.getInfo().equals(info)) {
                 result = aux;
                 break;
@@ -520,9 +529,10 @@ public class Graph<V, E> {
                 //  System.out.println("Parte 1: " + parts[0].toString());
                 // System.out.println("Parte 2: " + parts[1].toString());
                 // System.out.println("Parte 3: " + parts[2].toString());
-                Vertex vertice = new Vertex(parts[0].toString());
+                Vertex vertice = new Vertex(parts[0]);
                 vertice.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
                 verticesQuemados.addLast(vertice);
+                this.cantV++;
             }
 
         } catch (Exception e) {

@@ -40,11 +40,11 @@ public class Vertex<V> {
         this.position = position;
     }
 
-    public double getDistancia(Vertex<V> v) {
+    public int getDistancia(Vertex<V> v) {
         double cateto1 = position.getX() - v.getPosition().getX();
         double cateto2 = position.getY() - v.getPosition().getY();
-        double hipotenusa = Math.sqrt(cateto1 * cateto1 + cateto2 * cateto2);
-        return hipotenusa;
+        int hipotenusa = (int) Math.sqrt(cateto1 * cateto1 + cateto2 * cateto2);
+        return  hipotenusa;
     }
     public void setPosiciones(float x, float y){
         this.position.setLocation(x, y);

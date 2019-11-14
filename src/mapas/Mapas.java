@@ -20,11 +20,10 @@ public class Mapas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-                Graph<Integer,Integer> g1 = new Graph<>();
-                g1.leerVertices();
-                g1.leerAristas();
-                System.out.println(g1.toString());
-                
+        Graph<Integer, Integer> g1 = new Graph<>();
+        g1.leerVertices();
+        g1.leerAristas();
+        System.out.println(g1.toString());
 
 //        g1.add(new Vertex<>(1,new Point2D.Float(50,56)));
 //        g1.add(new Vertex<>(2,new Point2D.Float(50,137)));
@@ -121,12 +120,9 @@ public class Mapas {
 //        g1.add(26,34,0);
 //        g1.add(28,36,0);
 //        g1.add(35,27,0);
-        
         //g1.add(,,0);
-        
         //g1.add(,,0);
         //g1.add(new Vertex<>(1,new Point2D.Float(,)));
-
 //        
 //        g1.add(1, 4, 32);
 //        g1.add(1, 2, 2);
@@ -136,14 +132,12 @@ public class Mapas {
 //        g1.add(4, 2, 52);
 //        g1.add(5, 2, 36);
 //        g1.add(3, 2, 36);
-        
         View view = new View();
         view.setGraph(g1);
         view.addCarrier();
         view.init();  //Iniciar el hilo de movimiento
-       view.setVisible(true);
-        
-        
+        view.setVisible(true);
+
         //System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(2)));
         //System.out.println("Distancia: " + g1.getVertex(2).getDistancia(g1.getVertex(3)));
         //System.out.println("Distancia: " + g1.getVertex(1).getDistancia(g1.getVertex(3)));
@@ -151,14 +145,12 @@ public class Mapas {
         //System.out.println("Distancia: " + g1.getVertex(4).getDistancia(g1.getVertex(5)));
         //System.out.println("Distancia: " + g1.getVertex(5).getDistancia(g1.getVertex(2)));
         //System.out.println("Distancia: " + g1.getVertex(3).getDistancia(g1.getVertex(2)));
-        
         //O: El mismo nodo no puede tener relación consigo mismo
         //1000: 
         //System.out.println("Tamaño: " + g1.size());
         //System.out.println(g1.toString());
-        //System.out.println(g1.toString(g1.ParseMatrizAdy()));
+        System.out.println(g1.toString(g1.ParseMatrizAdy()));
         //System.out.println("Camino mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
-
     }
 
 }
