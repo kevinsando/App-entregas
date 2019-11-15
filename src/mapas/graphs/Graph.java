@@ -448,7 +448,7 @@ public class Graph<V, E> {
                 drawArrowHead(media, (int) edgeAux.getTail().getPosition().getX(),
                         (int) edgeAux.getTail().getPosition().getY(),
                         (int) edgeAux.getHead().getPosition().getX(),
-                        (int) edgeAux.getHead().getPosition().getY() - 10, Color.blue);
+                        (int) edgeAux.getHead().getPosition().getY() - 10, Color.GREEN);
 
             }
             media.setStroke(new BasicStroke(4f));
