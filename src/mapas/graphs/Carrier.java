@@ -28,7 +28,7 @@ public class Carrier<V> {
     private List<Vertex<V>> ruta;
     public Carrier(Vertex<V> startVertex, Vertex<V> endVertex,List<Vertex<V>> lis) {
         this.startVertex = startVertex;
-        this.endVertex = endVertex;
+        this.endVertex = startVertex;
         this.startPosition = startVertex.getPosition();
         this.endPosition = endVertex.getPosition();
         this.dt = 0.0;
@@ -59,15 +59,6 @@ public class Carrier<V> {
     public void paint(Graphics2D g) {
         g.setStroke(new BasicStroke(8f));
         g.setColor(Color.RED);
-        g.drawOval(
-                (int) ((startPosition.x + t * (endPosition.x - startPosition.x)) - 10 / 2),
-                (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2),
-                10, 10);
-    }
-    
-      public void paint2(Graphics2D g) {
-        g.setStroke(new BasicStroke(8f));
-        g.setColor(Color.green);
         g.drawOval(
                 (int) ((startPosition.x + t * (endPosition.x - startPosition.x)) - 10 / 2),
                 (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2),

@@ -26,7 +26,7 @@ public class Mapas {
         g1.leerAristas();
         View view = new View();
         view.setGraph(g1);
-//        view.addCarrier();
+        view.addCarrier();
         seleccionRutas rutas = new seleccionRutas(view);
         rutas.setVisible(true);
 

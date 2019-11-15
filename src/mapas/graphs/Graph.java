@@ -287,7 +287,7 @@ public class Graph<V, E> {
 //        if (caminitos.isEmpty()) {
 //            return "No hay camino disponible entre esos vertices\n";
 //        } else {
-     //   System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
+        System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
 //        }
         return list;
     }
@@ -486,7 +486,7 @@ public class Graph<V, E> {
                 Vertex<V> v0 = m.getEndVertex();
                 Iterator<Edge<V, E>> edges = getEdges(v0.getInfo()).getIterator();
                 List<Vertex<V>> list = m.getRuta();
-                //list=algoritmoFloyd(ParseMatrizAdy(),(String)m.getStartVertex().getInfo(),(String)m.getEndVertex().getInfo());
+//                list=algoritmoFloyd(ParseMatrizAdy(),(String)m.getStartVertex().getInfo(),(String)m.getEndVertex().getInfo());
 //                while (edges.hasNext()) {
 //                    list.addLast(edges.getNext().getHead());
 //                }
@@ -568,7 +568,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/vertices2.txt");
+            archivo = new File("src/vertices1.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
@@ -610,7 +610,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/aristas2.txt");
+            archivo = new File("src/aristas1.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 

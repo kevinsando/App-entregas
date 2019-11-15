@@ -25,7 +25,7 @@ import mapas.graphs.Graph;
  *
  * @author Jason
  */
-public class View extends javax.swing.JFrame implements Observer {
+public class View extends javax.swing.JFrame {
 
     private BufferedImage bi;
     private String ruta;
@@ -33,7 +33,6 @@ public class View extends javax.swing.JFrame implements Observer {
     /**
      * Creates new form View
      */
-    
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
@@ -48,7 +47,7 @@ public class View extends javax.swing.JFrame implements Observer {
             public void paint(java.awt.Graphics g) {
                 g.drawImage(map1, 0, 0, this);
             }
-             
+
         };
         this.setContentPane(graphPanel);
         graphPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,6 +72,7 @@ public class View extends javax.swing.JFrame implements Observer {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         graphCheck = new javax.swing.JCheckBoxMenuItem();
+        runCheck = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +107,14 @@ public class View extends javax.swing.JFrame implements Observer {
         graphCheck.setText("Draw graph");
         jMenu3.add(graphCheck);
 
+        runCheck.setText("Run");
+        runCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runCheckActionPerformed(evt);
+            }
+        });
+        jMenu3.add(runCheck);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -116,13 +124,18 @@ public class View extends javax.swing.JFrame implements Observer {
 
     private void graphPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graphPanelMouseClicked
 
-        System.out.print(evt.getPoint().toString() + "\n");
+        System.out.print((evt.getX()+10)+"," +(evt.getY()+65)+ "\n");
     }//GEN-LAST:event_graphPanelMouseClicked
+
+    private void runCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheckActionPerformed
+        if (this.runCheck.isSelected()) {
+            this.init();
+        }
+    }//GEN-LAST:event_runCheckActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem graphCheck;
@@ -131,6 +144,7 @@ public class View extends javax.swing.JFrame implements Observer {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JCheckBoxMenuItem runCheck;
     // End of variables declaration//GEN-END:variables
 
     Graph graph;
@@ -142,7 +156,7 @@ public class View extends javax.swing.JFrame implements Observer {
         //carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("27")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("28")));
-        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35"),graph.algoritmoFloyd(graph.ParseMatrizAdy(),"33","35")));
+        carriers.addLast(new Carrier(graph.getVertex("21"), graph.getVertex("30"), graph.algoritmoFloyd(graph.ParseMatrizAdy(), "21", "30")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("1")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("2")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("3")));
@@ -177,7 +191,7 @@ public class View extends javax.swing.JFrame implements Observer {
         //g.guardarVertices();
     }
 
-    @Override
+    //@Override
     public void update(Observable o, Object o1) {
         repaint();
     }
@@ -188,15 +202,14 @@ public class View extends javax.swing.JFrame implements Observer {
         super.paint(media);
         loadImages();
         if (graphCheck.isSelected()) {
-            graph.paint(media);                                          // ****
+            graph.paint(media);
         }
-//        Iterator<Carrier> iteratorC = carriers.getIterator();
-//        iteratorC.getNext().paint2((Graphics2D) media);
-       // while (iteratorC.hasNext()) {
-            //iteratorC.getNext().paint((Graphics2D) media);               *****
-      //  }
-
+        Iterator<Carrier> iteratorC = carriers.getIterator();
+        while (iteratorC.hasNext()) {
+            iteratorC.getNext().paint((Graphics2D) media);
+        }
         g.drawImage(bi, 0, 0, null);
+        this.graphPanel.paintComponents(media);
     }
 //        Graphics media = map.getGraphics();
 //        super.paint(media);
@@ -216,7 +229,7 @@ public class View extends javax.swing.JFrame implements Observer {
         runner = new Thread() {
             @Override
             public void run() {
-                while (runner == Thread.currentThread()) {
+                while (runner == Thread.currentThread() && runCheck.isSelected()) {
                     repaint();
                     Iterator<Carrier> iteratorC = carriers.getIterator();
                     while (iteratorC.hasNext()) {
