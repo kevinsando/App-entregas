@@ -92,6 +92,11 @@ public class seleccionRutas extends javax.swing.JFrame {
             view.getGraph().leerVertices("src/vertices2.txt");
             view.getGraph().leerAristas("src/aristas2.txt");
         }
+        if(cities.getSelectedIndex()==2){
+            view.setRuta("src/mapas/view/SantaBarbara.jpg");
+            view.getGraph().leerVertices("src/vertices3.txt");
+            view.getGraph().leerAristas("src/aristas3.txt");
+        }
         
         view.init();
         view.setVisible(true);

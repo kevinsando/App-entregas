@@ -26,6 +26,7 @@ public class Carrier<V> {
     private static final double MIN_DR = 4.0;
     private static final double MAX_DR = 5.5;
     private List<Vertex<V>> ruta;
+    
     public Carrier(Vertex<V> startVertex, Vertex<V> endVertex,List<Vertex<V>> lis) {
         this.startVertex = startVertex;
         this.endVertex = startVertex;

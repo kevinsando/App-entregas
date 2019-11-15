@@ -169,7 +169,7 @@ public class View extends javax.swing.JFrame {
         //carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("27")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("28")));
-        carriers.addLast(new Carrier(graph.getVertex("21"), graph.getVertex("30"), graph.algoritmoFloyd(graph.ParseMatrizAdy(), "21", "30")));
+        carriers.addLast(new Carrier(graph.getVertex("1"), graph.getVertex("2"), graph.algoritmoFloyd(graph.ParseMatrizAdy(), "1", "2")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("1")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("2")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("3")));
