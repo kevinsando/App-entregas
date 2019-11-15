@@ -29,7 +29,8 @@ public class View extends javax.swing.JFrame {
 
     private BufferedImage bi;
     private String ruta;
-
+    private String mapV;
+    private String mapA;
     /**
      * Creates new form View
      */
@@ -37,7 +38,18 @@ public class View extends javax.swing.JFrame {
         this.ruta = ruta;
     }
 
+    public void setMap(String map) {
+        this.mapV = map;
+    }
+
+    public void setMapA(String mapA) {
+        this.mapA = mapA;
+    }
+    
+
     public View() {
+        
+        
         initComponents();
         carriers = new SimpleLinkedList<>();
         bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -107,6 +119,7 @@ public class View extends javax.swing.JFrame {
         graphCheck.setText("Draw graph");
         jMenu3.add(graphCheck);
 
+        runCheck.setSelected(true);
         runCheck.setText("Run");
         runCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

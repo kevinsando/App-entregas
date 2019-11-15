@@ -563,13 +563,13 @@ public class Graph<V, E> {
         }
     }
 
-    public void leerVertices() {
+    public void leerVertices(String direccion) {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/vertices1.txt");
+            archivo = new File(direccion);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
@@ -605,13 +605,13 @@ public class Graph<V, E> {
 
     }
 
-    public void leerAristas() {
+    public void leerAristas(String direccion) {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/aristas1.txt");
+            archivo = new File(direccion);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
