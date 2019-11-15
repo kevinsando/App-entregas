@@ -454,7 +454,7 @@ public class Graph<V, E> {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("src/aristas.txt");
+            fichero = new FileWriter("src/aristas2.txt");
             pw = new PrintWriter(fichero);
 
             Iterator<Edge<V, E>> i = this.aristasQuemadas.getIterator();
@@ -481,7 +481,7 @@ public class Graph<V, E> {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("src/vertices.txt");
+            fichero = new FileWriter("src/vertices2.txt");
             pw = new PrintWriter(fichero);
 
             Iterator<Vertex<V>> j = this.verticesQuemados.getIterator();
@@ -510,7 +510,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/vertices.txt");
+            archivo = new File("src/vertices2.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
@@ -552,7 +552,7 @@ public class Graph<V, E> {
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/aristas.txt");
+            archivo = new File("src/aristas2.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
