@@ -265,30 +265,30 @@ public class Graph<V, E> {
                 {
                     if (i != j)//no son el mismo nodo
                     {
-                        if (Integer.toString(i + 1).equals(inicio) && Integer.toString(j + 1).equals(fin)) {//FILTRO DE INICIO Y FIN
-                            if (caminos[i][j].equals("")) {
-                                caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
-                                list.addLast(getVertex((V) Integer.toString(i + 1)));
-                                list.addLast(getVertex((V) Integer.toString(j + 1)));
-                            } else {
-                                caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
-                                list.addLast(getVertex((V) Integer.toString(i + 1)));
-                                list.append(getVertex((V) caminos[i][j], caminos[i][j].length()));
+                        // if (Integer.toString(i + 1).equals(inicio) && Integer.toString(j + 1).equals(fin)) {//FILTRO DE INICIO Y FIN
+                        if (caminos[i][j].equals("")) {
+                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
+                            list.addLast(getVertex((V) Integer.toString(i + 1)));
+                            list.addLast(getVertex((V) Integer.toString(j + 1)));
+                        } else {
+                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
+                            list.addLast(getVertex((V) Integer.toString(i + 1)));
+                            list.append(getVertex((V) caminos[i][j], caminos[i][j].length()));
 
-                                list.addLast(getVertex((V) Integer.toString(j + 1)));
-                            }
+                            list.addLast(getVertex((V) Integer.toString(j + 1)));
                         }
+                        // }
                     }
                 }
             }
         }
-//        System.out.println(list.toString());
+        System.out.println(list.toString());
         //System.out.println("La matriz de caminitos mas cortos entre los diferentes vertices es:\n" + cadena);//Matriz de caminos mas cortos
-//        if (caminitos.isEmpty()) {
-//            return "No hay camino disponible entre esos vertices\n";
-//        } else {
-        System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
-//        }
+        if (caminitos.isEmpty()) {
+            System.out.println("No hay camino disponible entre esos vertices\n");
+        } else {
+            System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
+        }
         return list;
     }
 
@@ -298,8 +298,9 @@ public class Graph<V, E> {
         } else {
             caminoRecorrido += caminosR(i, Integer.parseInt(caminosAuxiliares[i][k]),
                     caminosAuxiliares, caminoRecorrido) + (Integer.parseInt(caminosAuxiliares[i][k]) + 1) + ",";
+            return caminoRecorrido;
+
         }
-        return caminoRecorrido;
     }
 
     public String toString(int[][] mat) {
