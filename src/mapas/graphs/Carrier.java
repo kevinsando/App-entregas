@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import lists.List;
 
 /**
  *
@@ -24,8 +25,8 @@ public class Carrier<V> {
     private boolean moving;    
     private static final double MIN_DR = 4.0;
     private static final double MAX_DR = 5.5;
-    
-    public Carrier(Vertex<V> startVertex, Vertex<V> endVertex) {
+    private List<Vertex<V>> ruta;
+    public Carrier(Vertex<V> startVertex, Vertex<V> endVertex,List<Vertex<V>> lis) {
         this.startVertex = startVertex;
         this.endVertex = endVertex;
         this.startPosition = startVertex.getPosition();
@@ -33,6 +34,15 @@ public class Carrier<V> {
         this.dt = 0.0;
         this.t = 0.0;
         this.moving = false;
+        ruta=lis;
+    }
+
+    public List<Vertex<V>> getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(List<Vertex<V>> ruta) {
+        this.ruta = ruta;
     }
     
         public void start() {

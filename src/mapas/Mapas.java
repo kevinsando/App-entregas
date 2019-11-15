@@ -146,11 +146,11 @@ public class Mapas {
         //System.out.println("Distancia: " + g1.getVertex(5).getDistancia(g1.getVertex(2)));
         //System.out.println("Distancia: " + g1.getVertex(3).getDistancia(g1.getVertex(2)));
         //O: El mismo nodo no puede tener relación consigo mismo
-        //1000: 
-        //System.out.println("Tamaño: " + g1.size());
-        //System.out.println(g1.toString());
-//        System.out.println(g1.toString(g1.ParseMatrizAdy()));
-//        System.out.println("Caminito mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy()));
+        //1000: Infinito
+        System.out.println("Tamaño: " + g1.size());
+//        System.out.println(g1.toString());
+//      System.out.println(g1.toString(g1.ParseMatrizAdy()));
+        System.out.println("Caminito mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy(),"33","35").toString());
     }
 
 }

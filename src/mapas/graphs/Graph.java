@@ -69,7 +69,6 @@ public class Graph<V, E> {
 
     public int[][] ParseMatrizAdy() {
         int cantidad = this.cantV;
-        System.out.println(this.size());
         Iterator<Edge<V, E>> edgeIterator;
         Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
         Vertex<V> vertexAux;
@@ -78,11 +77,10 @@ public class Graph<V, E> {
         for (int i = 0; i < cantidad; i++) {
 
             for (int j = 0; j < cantidad; j++) {
-                if(i==j)
-                matrizAdy[i][j] = 0;
-                else
-                {
-                    matrizAdy[i][j]=1000;
+                if (i == j) {
+                    matrizAdy[i][j] = 0;
+                } else {
+                    matrizAdy[i][j] = 1000;
                 }
             }
         }
@@ -91,11 +89,9 @@ public class Graph<V, E> {
             edgeIterator = this.getEdges(vertexAux.getInfo()).getIterator();
             while (edgeIterator.hasNext()) {
                 edgeAux = edgeIterator.getNext();
-                System.out.println(Integer.parseInt((String) vertexAux.getInfo()) - 1);
-                System.out.println(Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1);
-                matrizAdy[Integer.parseInt((String) vertexAux.getInfo()) - 1][Integer.parseInt((String)edgeAux.getHead().getInfo()) - 1] 
-                        = (int) (Math.round(Integer.parseInt(vertexAux.getInfo().toString()))) + edgeAux.getHead().getDistancia(vertexAux);                
-                
+                matrizAdy[Integer.parseInt((String) vertexAux.getInfo()) - 1][Integer.parseInt((String) edgeAux.getHead().getInfo()) - 1]
+                        = (int) (Math.round(Integer.parseInt(vertexAux.getInfo().toString()))) + edgeAux.getHead().getDistancia(vertexAux);
+
             }
         }
         return matrizAdy;
@@ -128,6 +124,52 @@ public class Graph<V, E> {
                 result = aux;
                 break;
             }
+        }
+        return result;
+    }
+
+    public List<Vertex<V>> getVertex(V info, int lenght) { //BUSCA EL VERTICE QUE CONTIENE EL PARAMETRO DADO, SINO DEVUELVE NULL
+        Vertex<V> aux;
+        boolean bandera = false;
+        int i = 0;
+        String value = (String) info;
+        List<Vertex<V>> result = new SimpleLinkedList<>();
+
+        int inicio = -3;
+        int fin = -1;
+        Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
+        while (iterator.hasNext() && lenght > 0) {
+            String valor = (String) info;
+            aux = iterator.getNext();
+            if (lenght == 1)//Si es solo un caracter
+            {
+                result.addLast(getVertex((V) valor));
+                break;
+            }
+            if (value.charAt(2 * i + 1) == ',')//Si hay valores de un digito
+            {
+                if (inicio < 0) {
+                    inicio += 3;
+                } else {
+                    inicio += 2;
+                }
+                bandera = true;
+                fin += 2;
+                result.addLast(getVertex((V) valor.substring(inicio, fin)));
+                lenght -= 2;
+            } else {
+                if (bandera) {
+                    inicio--;
+                    bandera = false;
+                }
+                inicio += 3;
+                fin += 3;
+                i--;
+                //System.out.println("--"+aux.getInfo()+"--"+info+"--");
+                result.addLast(getVertex((V) valor.substring(inicio, fin)));
+                lenght -= 3;
+            }
+            i++;
         }
         return result;
     }
@@ -169,11 +211,12 @@ public class Graph<V, E> {
         return s.toString();
     }
 
-    public String algoritmoFloyd(int[][] grafo) {
+    public List<Vertex<V>> algoritmoFloyd(int[][] grafo, String inicio, String fin) {
         int vertices = grafo.length;
         int matrizAdy[][] = grafo;
         String caminos[][] = new String[vertices][vertices];
         String caminosAuxiliares[][] = new String[vertices][vertices];
+        List<Vertex<V>> list = new SimpleLinkedList<>();
         String caminoRecorrido = "", cadena = "", caminitos = "";
         int temporal1, temporal2, temporal3, temporal4, minimo;
         //INICIALIZANDO MATRICES
@@ -208,7 +251,7 @@ public class Graph<V, E> {
         //AGREGANDO EL CAMINO MIN A CADENA
 
         for (int i = 0; i < vertices; i++) {
-            cadena+=""+(i+1)+" ";
+            cadena += "" + (i + 1) + " ";
             for (int j = 0; j < vertices; j++) {
                 cadena = cadena + "[" + matrizAdy[i][j] + "]";
             }
@@ -222,25 +265,39 @@ public class Graph<V, E> {
                 {
                     if (i != j)//no son el mismo nodo
                     {
-                        if (caminos[i][j].equals("")) {
-                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
-                        } else {
-                            caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
+                        if (Integer.toString(i + 1).equals(inicio) && Integer.toString(j + 1).equals(fin)) {//FILTRO DE INICIO Y FIN
+                            if (caminos[i][j].equals("")) {
+                                caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
+                                list.addLast(getVertex((V) Integer.toString(i + 1)));
+                                list.addLast(getVertex((V) Integer.toString(j + 1)));
+                            } else {
+                                caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
+                                list.addLast(getVertex((V) Integer.toString(i + 1)));
+                                list.append(getVertex((V) caminos[i][j], caminos[i][j].length()));
+
+                                list.addLast(getVertex((V) Integer.toString(j + 1)));
+                            }
                         }
                     }
                 }
             }
         }
-        return "La matriz de caminitos mas cortos entre los diferentes vertices es:\n" + cadena//Matriz de caminos mas cortos
-                + "\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos;
+//        System.out.println(list.toString());
+        //System.out.println("La matriz de caminitos mas cortos entre los diferentes vertices es:\n" + cadena);//Matriz de caminos mas cortos
+//        if (caminitos.isEmpty()) {
+//            return "No hay camino disponible entre esos vertices\n";
+//        } else {
+     //   System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
+//        }
+        return list;
     }
 
     private String caminosR(int i, int k, String[][] caminosAuxiliares, String caminoRecorrido) {
         if (caminosAuxiliares[i][k].equals("")) {
             return "";
         } else {
-            caminoRecorrido+=caminosR(i,Integer.parseInt(caminosAuxiliares[i][k].toString()),
-            caminosAuxiliares,caminoRecorrido)+(Integer.parseInt(caminosAuxiliares[i][k].toString())+1)+",";
+            caminoRecorrido += caminosR(i, Integer.parseInt(caminosAuxiliares[i][k]),
+                    caminosAuxiliares, caminoRecorrido) + (Integer.parseInt(caminosAuxiliares[i][k]) + 1) + ",";
         }
         return caminoRecorrido;
     }
@@ -249,9 +306,8 @@ public class Graph<V, E> {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
-              
-                    s.append(mat[i][j]).append(" ");
-                
+
+                s.append(mat[i][j]).append(" ");
             }
             s.append("\n");
         }
@@ -429,14 +485,16 @@ public class Graph<V, E> {
             synchronized (Graph.this) {
                 Vertex<V> v0 = m.getEndVertex();
                 Iterator<Edge<V, E>> edges = getEdges(v0.getInfo()).getIterator();
-                List<Vertex<V>> list = new SimpleLinkedList<>();
-                while (edges.hasNext()) {
-                    list.addLast(edges.getNext().getHead());
-                }
-
+                List<Vertex<V>> list = m.getRuta();
+                //list=algoritmoFloyd(ParseMatrizAdy(),(String)m.getStartVertex().getInfo(),(String)m.getEndVertex().getInfo());
+//                while (edges.hasNext()) {
+//                    list.addLast(edges.getNext().getHead());
+//                }
                 // Se define el criterio para seleccionar
                 // el siguiente vértice.
-                Vertex<V> v1 = list.getLast();////////////////usar metodo para elegir
+                Vertex<V> v1 = list.getFirst();////////////////usar metodo para elegir
+                list.removeFirst();
+                m.setRuta(list);
                 if (v1 == null) {
                     m.setMoving(false);
                 } else {
@@ -571,11 +629,9 @@ public class Graph<V, E> {
                 //  System.out.println("Info A: " + parts[6].toString());
                 //Vertex tail = this.getVertex((V)parts[0].toString()); //new Vertex(parts[0].toString());
                 //tail.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
-
                 //Vertex head = this.getVertex((V)parts[0].toString());//new Vertex(parts[0].toString());
                 //head.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
-
-                Edge arista = new Edge(this.getVertex((V)parts[0].toString()), this.getVertex((V)parts[1].toString()), Double.parseDouble(parts[2].toString()));
+                Edge arista = new Edge(this.getVertex((V) parts[0].toString()), this.getVertex((V) parts[1].toString()), Double.parseDouble(parts[2].toString()));
                 aristasQuemadas.addLast(arista);
             }
 
@@ -590,6 +646,21 @@ public class Graph<V, E> {
                 e2.printStackTrace();
             }
         }
+    }
+
+    public Vertex<V> getVertex(String string) {
+        Vertex<V> aux;
+        Vertex<V> result = null;
+        Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
+        while (iterator.hasNext()) {
+            aux = iterator.getNext();
+            //System.out.println("--"+aux.getInfo()+"--"+info+"--");
+            if (aux.getInfo().equals(string)) {
+                result = aux;
+                break;
+            }
+        }
+        return result;
     }
 
 }
