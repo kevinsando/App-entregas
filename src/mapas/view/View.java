@@ -53,11 +53,12 @@ public class View extends javax.swing.JFrame {
     
 
     public View() {
+        
         initComponents();
         draw.setSelected(false);
         carriers = new SimpleLinkedList<>();
         bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-        this.draw.setSelected(true);
+        //this.draw.setSelected(true);
         graphPanel = new JPanel() {
             @Override
             public void paint(java.awt.Graphics g) {
@@ -194,29 +195,9 @@ public class View extends javax.swing.JFrame {
     List<Carrier> carriers;
 
     public void addCarrier(String origen, String destino) {
-        //carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("27")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("28")));
+
         carriers.addLast(new Carrier(graph.getVertex(origen), graph.getVertex(destino), graph.algoritmoFloyd(graph.ParseMatrizAdy(), origen, destino)));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("1")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("2")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("3")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("4")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("5")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("6")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("7")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("8")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("9")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("10")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("11")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("12")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("13")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("14")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("15")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("16")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("17")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("18")));
-//        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("19")));
+
 
     }
 
@@ -226,10 +207,7 @@ public class View extends javax.swing.JFrame {
 
     public void setGraph(Graph g) {
         this.graph = g;
-        // g.leerAristas();
-        // g.leerVertices();
-        //g.guardarAristas();
-        //g.guardarVertices();
+
     }
 
     //@Override
