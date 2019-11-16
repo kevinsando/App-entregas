@@ -85,7 +85,6 @@ public class View extends javax.swing.JFrame {
 
         graphPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         trayecto = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -112,9 +111,6 @@ public class View extends javax.swing.JFrame {
         );
 
         getContentPane().add(graphPanel, java.awt.BorderLayout.PAGE_START);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
 
@@ -181,7 +177,6 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem draw;
     private javax.swing.JPanel graphPanel;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
@@ -267,12 +262,10 @@ public class View extends javax.swing.JFrame {
         };
         runner.start();
     }
-
-//    public Carrier getC() {
-//        return c;
-//    }
-    public void setC(Carrier c) {
-        //this.c = c;
+    
+    public void resetGraph(){
+        this.graph=new Graph();
+        this.carriers=new SimpleLinkedList<>();
     }
 
 }

@@ -31,13 +31,6 @@ import lists.SimpleLinkedList;
  * @author Jason
  */
 public class Graph<V, E> {
-
-    private static final double[] W = {0.2, 0.4, 0.6, 0.8, 1.0};
-    private static final int DX = 72;
-    private static final int DY = 64;
-    private static final int MX = 6;
-    private int px = 0;
-    private Point2D.Float df = new Point2D.Float(0, 0);
     private List<Vertex<V>> verticesQuemados;
     private final List<Edge<V, E>> aristasQuemadas;
     private int cantV;
@@ -101,16 +94,8 @@ public class Graph<V, E> {
         return verticesQuemados;
     }
 
-    public void setVertex(List<Vertex<V>> vertex) {
-        //this.vertex = vertex;
-    }
-
     public List<Edge<V, E>> getEdges() {
         return aristasQuemadas;
-    }
-
-    public void setEdges(List<Edge<V, E>> edges) {
-        //this.aristasQuemadas = edges;
     }
 
     public Vertex<V> getVertex(V info) { //BUSCA EL VERTICE QUE CONTIENE EL PARAMETRO DADO, SINO DEVUELVE NULL
@@ -119,7 +104,6 @@ public class Graph<V, E> {
         Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
         while (iterator.hasNext()) {
             aux = iterator.getNext();
-            //System.out.println("--"+aux.getInfo()+"--"+info+"--");
             if (aux.getInfo().equals(info)) {
                 result = aux;
                 break;
@@ -165,7 +149,6 @@ public class Graph<V, E> {
                 inicio += 3;
                 fin += 3;
                 i--;
-                //System.out.println("--"+aux.getInfo()+"--"+info+"--");
                 result.addLast(getVertex((V) valor.substring(inicio, fin)));
                 lenght -= 3;
             }
@@ -287,7 +270,6 @@ public class Graph<V, E> {
                             Vertex<V> salvaTandas=encloche.getFirst();
                             encloche.removeLast();
                             encloche.append(buscarConexionNodos(grafo,(String)salvaTandas.getInfo(),(String)getVertex((V) Integer.toString(j + 1)).getInfo()));//ULTIMO DE ENCLOCHE,Y Ultimo nodo
-                           // list.append(getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length()));
                             list.append(encloche);
                         }
                          }
@@ -296,13 +278,24 @@ public class Graph<V, E> {
             }
         }
         System.out.println(list.toString());
-        //System.out.println("La matriz de caminitos mas cortos entre los diferentes vertices es:\n" + cadena);//Matriz de caminos mas cortos
         if (caminitos.isEmpty()) {
             System.out.println("No hay camino disponible entre esos vertices\n");
         } else {
             System.out.println("\nLos diferentes caminitos mas cortos entre vertices son:\n" + caminitos);
         }
         return list;
+    }
+    
+    public Edge buscarArista(V tail, V head){
+        Iterator<Edge<V,E>> iterator = this.aristasQuemadas.getIterator();
+        Edge<V,E> aux = null;
+        while(iterator.hasNext()){
+            aux=iterator.getNext();
+            if(aux.getTail().equals(tail)&&aux.getHead().equals(head)){
+                break;
+            }
+        }
+        return aux;
     }
 
     private String caminosR(int i, int k, String[][] caminosAuxiliares, String caminoRecorrido) {
@@ -356,7 +349,6 @@ public class Graph<V, E> {
             media.setStroke(new BasicStroke(4f));
             media.setColor(Color.lightGray);
 
-            //media.fillOval((int) vertexAux.getPosition().x - 5, (int) vertexAux.getPosition().y - 10, 20, 20);
             media.setFont(new Font("Arial Black", 0, 20));
             media.setColor(Color.black);
             media.drawString(vertexAux.getInfo().toString(), (int) vertexAux.getPosition().getX(), (int) vertexAux.getPosition().getY() + 5);
@@ -400,15 +392,8 @@ public class Graph<V, E> {
         } else {
             synchronized (Graph.this) {
                 Vertex<V> v0 = m.getEndVertex();
-                Iterator<Edge<V, E>> edges = getEdges(v0.getInfo()).getIterator();
                 List<Vertex<V>> list = m.getRuta();
-//                list=algoritmoFloyd(ParseMatrizAdy(),(String)m.getStartVertex().getInfo(),(String)m.getEndVertex().getInfo());
-//                while (edges.hasNext()) {
-//                    list.addLast(edges.getNext().getHead());
-//                }
-                // Se define el criterio para seleccionar
-                // el siguiente vértice.
-                Vertex<V> v1 = list.getFirst();////////////////usar metodo para elegir
+                Vertex<V> v1 = list.getFirst();
                 list.removeFirst();
                 m.setRuta(list);
                 if (v1 == null) {
@@ -493,15 +478,10 @@ public class Graph<V, E> {
             String pos;
 
             while ((linea = br.readLine()) != null) {
-                // System.out.println("Linea vertice: " + linea);
                 String aDividir = linea;
                 String parts[] = aDividir.split(",");
-
-                //  System.out.println("Parte 1: " + parts[0].toString());
-                // System.out.println("Parte 2: " + parts[1].toString());
-                // System.out.println("Parte 3: " + parts[2].toString());
                 Vertex vertice = new Vertex(parts[0]);
-                vertice.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
+                vertice.setPosiciones(Float.parseFloat(parts[1]), Float.parseFloat(parts[2]));
                 verticesQuemados.addLast(vertice);
                 this.cantV++;
             }
@@ -531,22 +511,9 @@ public class Graph<V, E> {
             br = new BufferedReader(fr);
 
             String linea = "";
-            String pos;
             while ((linea = br.readLine()) != null) {
                 String aDividir = linea;
                 String parts[] = aDividir.split(",");
-
-                //  System.out.println("Info 1: " + parts[0].toString());
-                //  System.out.println("x    1: " + parts[1].toString());
-                //  System.out.println("y    1: " + parts[2].toString());
-                //  System.out.println("Info 2: " + parts[3].toString());
-                //  System.out.println("x    2: " + parts[4].toString());
-                // System.out.println("y    2: " + parts[5].toString());
-                //  System.out.println("Info A: " + parts[6].toString());
-                //Vertex tail = this.getVertex((V)parts[0].toString()); //new Vertex(parts[0].toString());
-                //tail.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
-                //Vertex head = this.getVertex((V)parts[0].toString());//new Vertex(parts[0].toString());
-                //head.setPosiciones(Float.parseFloat(parts[1].toString()), Float.parseFloat(parts[2].toString()));
                 Edge arista = new Edge(this.getVertex((V) parts[0].toString()), this.getVertex((V) parts[1].toString()), Double.parseDouble(parts[2].toString()));
                 aristasQuemadas.addLast(arista);
             }
@@ -570,7 +537,6 @@ public class Graph<V, E> {
         Iterator<Vertex<V>> iterator = verticesQuemados.getIterator();
         while (iterator.hasNext()) {
             aux = iterator.getNext();
-            //System.out.println("--"+aux.getInfo()+"--"+info+"--");
             if (aux.getInfo().equals(string)) {
                 result = aux;
                 break;

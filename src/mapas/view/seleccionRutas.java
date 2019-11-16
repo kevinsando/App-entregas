@@ -89,16 +89,19 @@ public class seleccionRutas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(cities.getSelectedIndex()==0){
             view.setRuta("src/mapas/view/map.png");
+            view.resetGraph();
             view.getGraph().leerVertices("src/vertices1.txt");
             view.getGraph().leerAristas("src/aristas1.txt");
         }
         if(cities.getSelectedIndex()==1){
             view.setRuta("src/mapas/view/SanRafa.png");
+            view.resetGraph();
             view.getGraph().leerVertices("src/vertices2.txt");
             view.getGraph().leerAristas("src/aristas2.txt");
         }
         if(cities.getSelectedIndex()==2){
-            view.setRuta("src/mapas/view/SantaBarbara.jpg");
+            view.setRuta("src/mapas/view/santa.png");
+            view.resetGraph();
             view.getGraph().leerVertices("src/vertices3.txt");
             view.getGraph().leerAristas("src/aristas3.txt");
         }

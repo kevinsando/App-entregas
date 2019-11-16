@@ -8,7 +8,9 @@ package mapas.graphs;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Point2D;
+import javax.swing.ImageIcon;
 import lists.List;
 
 /**
@@ -26,6 +28,7 @@ public class Carrier<V> {
     private static final double MIN_DR = 4.0;
     private static final double MAX_DR = 5.5;
     private List<Vertex<V>> ruta;
+    private Image logo;
     
     public Carrier(Vertex<V> startVertex, Vertex<V> endVertex,List<Vertex<V>> lis) {
         this.startVertex = startVertex;
@@ -36,6 +39,8 @@ public class Carrier<V> {
         this.t = 0.0;
         this.moving = false;
         ruta=lis;
+        ImageIcon iih = new ImageIcon("src/mapas/view/carrier.png");
+        logo = iih.getImage();
     }
 
     public List<Vertex<V>> getRuta() {
@@ -60,10 +65,7 @@ public class Carrier<V> {
     public void paint(Graphics2D g) {
         g.setStroke(new BasicStroke(8f));
         g.setColor(Color.RED);
-        g.drawOval(
-                (int) ((startPosition.x + t * (endPosition.x - startPosition.x)) - 10 / 2),
-                (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2),
-                10, 10);
+        g.drawImage(logo, (int) ((startPosition.x + t * (endPosition.x - startPosition.x)) - 10 / 2), (int) ((startPosition.y + t * (endPosition.y - startPosition.y)) - 10 / 2)-10, null);
     }
 
     public Vertex<V> getStartVertex() {
