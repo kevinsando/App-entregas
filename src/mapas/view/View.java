@@ -31,11 +31,16 @@ public class View extends javax.swing.JFrame {
     private String ruta;
     private String mapV;
     private String mapA;
+    private Trayecto t;
     /**
      * Creates new form View
      */
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+
+    public void setT(Trayecto t) {
+        this.t = t;
     }
 
     public void setMap(String map) {
@@ -82,6 +87,7 @@ public class View extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        trayecto = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         graphCheck = new javax.swing.JCheckBoxMenuItem();
         runCheck = new javax.swing.JCheckBoxMenuItem();
@@ -111,6 +117,15 @@ public class View extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        trayecto.setText("Trayecto");
+        trayecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trayectoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(trayecto);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("View");
@@ -146,6 +161,11 @@ public class View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_runCheckActionPerformed
 
+    private void trayectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trayectoActionPerformed
+        // TODO add your handling code here:
+        t.setVisible(true);
+    }//GEN-LAST:event_trayectoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -158,6 +178,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JCheckBoxMenuItem runCheck;
+    private javax.swing.JMenuItem trayecto;
     // End of variables declaration//GEN-END:variables
 
     Graph graph;
@@ -165,11 +186,11 @@ public class View extends javax.swing.JFrame {
     private Thread runner;
     List<Carrier> carriers;
 
-    public void addCarrier() {
+    public void addCarrier(String origen, String destino) {
         //carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("35")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("27")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("28")));
-        carriers.addLast(new Carrier(graph.getVertex("1"), graph.getVertex("2"), graph.algoritmoFloyd(graph.ParseMatrizAdy(), "1", "2")));
+        carriers.addLast(new Carrier(graph.getVertex(origen), graph.getVertex(destino), graph.algoritmoFloyd(graph.ParseMatrizAdy(), origen, destino)));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("1")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("2")));
 //        carriers.addLast(new Carrier(graph.getVertex("33"), graph.getVertex("3")));

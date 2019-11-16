@@ -8,6 +8,7 @@ import mapas.graphs.Graph;
  */
 public class seleccionRutas extends javax.swing.JFrame {
     View view;
+    Trayecto t;
     public seleccionRutas(Graph g) {
         initComponents();
         this.view = new View();
@@ -15,6 +16,10 @@ public class seleccionRutas extends javax.swing.JFrame {
         //view.getGraph().leerVertices("src/vertices1.txt");
         //view.getGraph().leerAristas("src/aristas1.txt");
         
+    }
+
+    public void setT(Trayecto t) {
+        this.t = t;
     }
 
     public View getView() {
@@ -100,7 +105,7 @@ public class seleccionRutas extends javax.swing.JFrame {
         
         view.init();
         view.setVisible(true);
-        view.addCarrier();
+        //view.addCarrier("1","2");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void citiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citiesActionPerformed

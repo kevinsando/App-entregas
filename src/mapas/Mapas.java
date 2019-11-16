@@ -8,6 +8,7 @@ package mapas;
 import java.awt.geom.Point2D;
 import mapas.graphs.Graph;
 import mapas.graphs.Vertex;
+import mapas.view.Trayecto;
 import mapas.view.View;
 import mapas.view.seleccionRutas;
 
@@ -17,20 +18,18 @@ import mapas.view.seleccionRutas;
  */
 public class Mapas {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         Graph<Integer, Integer> g1 = new Graph<>();
-        
-        
-        //g1.leerVertices();
-        //g1.leerAristas();
+
         
         View view;
+        
         seleccionRutas rutas = new seleccionRutas(g1);
         rutas.setVisible(true);
         view = rutas.getView();
+        Trayecto trayecto = new Trayecto(view);
+        view.setT(trayecto);
        // view.addCarrier();
         
 
