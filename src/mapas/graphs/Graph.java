@@ -141,7 +141,7 @@ public class Graph<V, E> {
         while (iterator.hasNext() && lenght > 0) {
             String valor = (String) info;
             aux = iterator.getNext();
-            if (lenght == 1)//Si es solo un caracter
+            if (valor.length() == 1)//Si es solo un caracter
             {
                 result.addLast(getVertex((V) valor));
                 break;
@@ -265,7 +265,7 @@ public class Graph<V, E> {
                 {
                     if (i != j)//no son el mismo nodo
                     {
-                        // if (Integer.toString(i + 1).equals(inicio) && Integer.toString(j + 1).equals(fin)) {//FILTRO DE INICIO Y FIN
+                         if (Integer.toString(i + 1).equals(inicio) && Integer.toString(j + 1).equals(fin)) {//FILTRO DE INICIO Y FIN
                         if (caminos[i][j].equals("")) {
                             caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + (j + 1) + "]\n";
                             list.addLast(getVertex((V) Integer.toString(i + 1)));
@@ -273,11 +273,11 @@ public class Graph<V, E> {
                         } else {
                             caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
                             list.addLast(getVertex((V) Integer.toString(i + 1)));
-                            list.append(getVertex((V) caminos[i][j], caminos[i][j].length()));
+                            list.append(getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length()));
 
                             list.addLast(getVertex((V) Integer.toString(j + 1)));
                         }
-                        // }
+                         }
                     }
                 }
             }
