@@ -31,8 +31,6 @@ public class Mapas {
         Trayecto trayecto = new Trayecto(view);
         view.setT(trayecto);
        // view.addCarrier();
-        
-
 
         System.out.println("Tamaño: " + g1.size());
         System.out.println("Caminito mas corto: "+g1.algoritmoFloyd(g1.ParseMatrizAdy(),"33","35").toString());

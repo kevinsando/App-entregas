@@ -53,12 +53,11 @@ public class View extends javax.swing.JFrame {
     
 
     public View() {
-        
-        
         initComponents();
+        draw.setSelected(false);
         carriers = new SimpleLinkedList<>();
         bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-        this.graphCheck.setSelected(true);
+        this.draw.setSelected(true);
         graphPanel = new JPanel() {
             @Override
             public void paint(java.awt.Graphics g) {
@@ -89,7 +88,7 @@ public class View extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         trayecto = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        graphCheck = new javax.swing.JCheckBoxMenuItem();
+        draw = new javax.swing.JCheckBoxMenuItem();
         runCheck = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,9 +129,13 @@ public class View extends javax.swing.JFrame {
 
         jMenu3.setText("View");
 
-        graphCheck.setSelected(true);
-        graphCheck.setText("Draw graph");
-        jMenu3.add(graphCheck);
+        draw.setText("Draw graph");
+        draw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawActionPerformed(evt);
+            }
+        });
+        jMenu3.add(draw);
 
         runCheck.setSelected(true);
         runCheck.setText("Run");
@@ -166,12 +169,16 @@ public class View extends javax.swing.JFrame {
         t.setVisible(true);
     }//GEN-LAST:event_trayectoActionPerformed
 
+    private void drawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drawActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem graphCheck;
+    private javax.swing.JCheckBoxMenuItem draw;
     private javax.swing.JPanel graphPanel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -235,8 +242,10 @@ public class View extends javax.swing.JFrame {
         Graphics media = bi.getGraphics();
         super.paint(media);
         loadImages();
-        if (graphCheck.isSelected()) {
+        graph.printInfo(media);
+        if (draw.isSelected()) {
             graph.paint(media);
+            
         }
         Iterator<Carrier> iteratorC = carriers.getIterator();
         while (iteratorC.hasNext()) {

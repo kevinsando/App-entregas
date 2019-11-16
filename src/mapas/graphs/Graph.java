@@ -315,119 +315,7 @@ public class Graph<V, E> {
         return s.toString();
     }
 
-//    public Rectangle getBounds() {
-//        float x0, x1, y0, y1;
-//        x0 = x1 = y0 = y1 = 0f;
-//        boolean f = false;
-//
-//        Iterator<Vertex<V>> i = verticesQuemados.getIterator();
-//        while (i.hasNext()) {
-//            Vertex<V> v = i.getNext();
-//
-//            if (!f) {
-//                x0 = x1 = v.getPosition().x;
-//                y0 = y1 = v.getPosition().y;
-//            }
-//            f = true;
-//
-//            x0 = Math.min(x0, v.getPosition().x);
-//            x1 = Math.max(x1, v.getPosition().x);
-//            y0 = Math.min(y0, v.getPosition().y);
-//            y1 = Math.max(y1, v.getPosition().y);
-//        }
-//
-//        if (!f) {
-//            throw new IllegalArgumentException();
-//        }
-//
-//        Rectangle r = new Rectangle(
-//                (int) (x0), (int) (y0),
-//                (int) (x1 - x0), (int) (y1 - y0)
-//        );
-//        r.grow(S / 2, S / 2);
-//        return r;
-//    }
-//
-//    public void paint(Graphics bg, Rectangle bounds) {
-//        Graphics2D g = (Graphics2D) bg;
-//
-//        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
-//        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-//                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-//
-//        g.setColor(Color.GRAY);
-//        g.setStroke(TRAZO_GUIA);
-//        Rectangle b = getBounds();
-//        g.drawRect(b.x, b.y, b.width, b.height);
-//
-//        g.setFont(TIPO_BASE);
-//        FontMetrics fm = g.getFontMetrics();
-//        g.setStroke(TRAZO_BASE);
-//
-//        Iterator<Edge<V, E>> i = aristasQuemadas.getIterator();
-//        while (i.hasNext()) {
-//            Edge<V, E> e = i.getNext();
-//           // System.out.println("aristas: " + e.toString());
-//            double r = e.getWeight();
-//            int p = 0;
-//            while (r > W[p]) {
-//                p++;
-//            }
-//            g.setColor(EDGE_COLOR[p]);
-//
-//            g.drawLine(
-//                    (int) e.getTail().getPosition().x,
-//                    (int) e.getTail().getPosition().y,
-//                    (int) e.getHead().getPosition().x,
-//                    (int) e.getHead().getPosition().y
-//            );
-//        }
-//
-//        Iterator<Vertex<V>> j = verticesQuemados.getIterator();
-//        while (j.hasNext()) {
-//            Vertex<V> v = j.getNext();
-//           // System.out.println("vertices: " + v.toString());
-//            g.setColor(Color.DARK_GRAY);
-//            g.fillOval(
-//                    (int) v.getPosition().x - S / 2 + 4,
-//                    (int) v.getPosition().y - S / 2 + 4,
-//                    S, S);
-//            g.setColor(Color.DARK_GRAY);
-//            g.fillOval(
-//                    (int) v.getPosition().x - S / 2,
-//                    (int) v.getPosition().y - S / 2,
-//                    S, S);
-//            g.setColor(Color.LIGHT_GRAY);
-//            g.drawOval(
-//                    (int) v.getPosition().x - S / 2,
-//                    (int) v.getPosition().y - S / 2,
-//                    S, S);
-//
-//            String t = String.format("%s", v.getInfo());
-//            g.setColor(Color.WHITE);
-//            g.drawString(t,
-//                    v.getPosition().x - fm.stringWidth(t) / 2,
-//                    v.getPosition().y + fm.getAscent() / 2);
-//        }
-//    }
-//     private static final float[] DASHES = {4f, 4f};
-//    private static final Stroke TRAZO_BASE = new BasicStroke(2f);
-//    private static final Stroke TRAZO_GUIA
-//            = new BasicStroke(1.0f,
-//                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-//                    0f, DASHES, 0f);
-//    private static final Font TIPO_BASE
-//            = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
-//    private static final int S = 48;
-//
-//    private static final Color[] EDGE_COLOR = {
-//        new Color(96, 96, 255),
-//        new Color(96, 255, 0),
-//        new Color(170, 255, 0),
-//        Color.ORANGE,
-//        new Color(255, 96, 0)
-//    };
+
     public void paint(Graphics g) {
         Graphics2D media = (Graphics2D) g;
         Iterator<Edge<V, E>> edgeIterator;
@@ -461,6 +349,20 @@ public class Graph<V, E> {
             media.drawString(vertexAux.getInfo().toString(), (int) vertexAux.getPosition().getX(), (int) vertexAux.getPosition().getY() + 5);
         }
 
+    }
+    public void printInfo(Graphics g){
+        Graphics2D media = (Graphics2D) g;
+        Iterator<Vertex<V>> vertexIterator = verticesQuemados.getIterator();
+        Vertex<V> vertexAux;
+        while (vertexIterator.hasNext()) {
+            vertexAux = vertexIterator.getNext();
+            media.setStroke(new BasicStroke(4f));
+            media.setColor(Color.lightGray);
+
+            media.setFont(new Font("Arial Black", 0, 20));
+            media.setColor(Color.black);
+            media.drawString(vertexAux.getInfo().toString(), (int) vertexAux.getPosition().getX(), (int) vertexAux.getPosition().getY() + 5);
+        }
     }
 
     private void drawArrowHead(Graphics2D g2, int x1, int y1, int x2, int y2, Color color) {
