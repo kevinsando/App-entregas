@@ -210,7 +210,16 @@ public class Graph<V, E> {
         }
         return s.toString();
     }
-
+ public List<Vertex<V>> buscarConexionNodos(int[][] grafo, String inicio, String fin)
+    {
+        Vertex<V> auxInicio=getVertex((V)inicio);
+        Vertex<V> auxFinal=getVertex((V)fin);
+        List<Vertex<V>> list = new SimpleLinkedList<>();
+        if(getEdges(auxFinal.getInfo()).getFirst().getTail()!=auxInicio)
+        {      list.append(algoritmoFloyd(grafo,inicio,fin));
+        }
+        return list;
+    }
     public List<Vertex<V>> algoritmoFloyd(int[][] grafo, String inicio, String fin) {
         int vertices = grafo.length;
         int matrizAdy[][] = grafo;
@@ -272,10 +281,14 @@ public class Graph<V, E> {
                             list.addLast(getVertex((V) Integer.toString(j + 1)));
                         } else {
                             caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
-                            list.addLast(getVertex((V) Integer.toString(i + 1)));
-                            list.append(getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length()));
-
-                            list.addLast(getVertex((V) Integer.toString(j + 1)));
+                            Vertex<V> begin=getVertex((V) Integer.toString(i + 1));//PRIMER NODO
+                            list.addLast(begin);
+                            List<Vertex<V>> encloche = getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length());//CODIGO INTERMEDIO
+                            Vertex<V> salvaTandas=encloche.getFirst();
+                            encloche.removeLast();
+                            encloche.append(buscarConexionNodos(grafo,(String)salvaTandas.getInfo(),(String)getVertex((V) Integer.toString(j + 1)).getInfo()));//ULTIMO DE ENCLOCHE,Y Ultimo nodo
+                           // list.append(getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length()));
+                            list.append(encloche);
                         }
                          }
                     }
