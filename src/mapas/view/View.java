@@ -32,6 +32,7 @@ public class View extends javax.swing.JFrame {
     private String mapV;
     private String mapA;
     private Trayecto t;
+
     /**
      * Creates new form View
      */
@@ -50,11 +51,11 @@ public class View extends javax.swing.JFrame {
     public void setMapA(String mapA) {
         this.mapA = mapA;
     }
-    
 
     public View() {
-        
+
         initComponents();
+        super.setTitle("Simulacion de trafico");
         draw.setSelected(false);
         carriers = new SimpleLinkedList<>();
         bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -152,7 +153,7 @@ public class View extends javax.swing.JFrame {
 
     private void graphPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graphPanelMouseClicked
 
-        System.out.print((evt.getX()+10)+"," +(evt.getY()+65)+ "\n");
+        System.out.print((evt.getX() + 10) + "," + (evt.getY() + 65) + "\n");
     }//GEN-LAST:event_graphPanelMouseClicked
 
     private void runCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheckActionPerformed
@@ -193,7 +194,6 @@ public class View extends javax.swing.JFrame {
 
         carriers.addLast(new Carrier(graph.getVertex(origen), graph.getVertex(destino), graph.algoritmoFloyd(graph.ParseMatrizAdy(), origen, destino)));
 
-
     }
 
     public Graph getGraph() {
@@ -218,7 +218,7 @@ public class View extends javax.swing.JFrame {
         graph.printInfo(media);
         if (draw.isSelected()) {
             graph.paint(media);
-            
+
         }
         Iterator<Carrier> iteratorC = carriers.getIterator();
         while (iteratorC.hasNext()) {
@@ -262,10 +262,10 @@ public class View extends javax.swing.JFrame {
         };
         runner.start();
     }
-    
-    public void resetGraph(){
-        this.graph=new Graph();
-        this.carriers=new SimpleLinkedList<>();
+
+    public void resetGraph() {
+        this.graph = new Graph();
+        this.carriers = new SimpleLinkedList<>();
     }
 
 }

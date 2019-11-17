@@ -7,15 +7,17 @@ import mapas.graphs.Graph;
  * @author Kevin
  */
 public class seleccionRutas extends javax.swing.JFrame {
+
     View view;
     Trayecto t;
+
     public seleccionRutas(Graph g) {
         initComponents();
+        super.setTitle("Seleccion de Rutas");
         this.view = new View();
         view.setGraph(g);
-        //view.getGraph().leerVertices("src/vertices1.txt");
-        //view.getGraph().leerAristas("src/aristas1.txt");
-        
+        setDefaultCloseOperation(seleccionRutas.DISPOSE_ON_CLOSE);
+
     }
 
     public void setT(Trayecto t) {
@@ -25,7 +27,6 @@ public class seleccionRutas extends javax.swing.JFrame {
     public View getView() {
         return view;
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -87,34 +88,34 @@ public class seleccionRutas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(cities.getSelectedIndex()==0){
+        if (cities.getSelectedIndex() == 0) {
             view.setRuta("src/mapas/view/map.png");
             view.resetGraph();
             view.getGraph().leerVertices("src/vertices1.txt");
             view.getGraph().leerAristas("src/aristas1.txt");
         }
-        if(cities.getSelectedIndex()==1){
+        if (cities.getSelectedIndex() == 1) {
             view.setRuta("src/mapas/view/SanRafa.png");
             view.resetGraph();
             view.getGraph().leerVertices("src/vertices2.txt");
             view.getGraph().leerAristas("src/aristas2.txt");
         }
-        if(cities.getSelectedIndex()==2){
+        if (cities.getSelectedIndex() == 2) {
             view.setRuta("src/mapas/view/santa.png");
             view.resetGraph();
             view.getGraph().leerVertices("src/vertices3.txt");
             view.getGraph().leerAristas("src/aristas3.txt");
         }
-        
+
         view.init();
         view.setVisible(true);
+        this.dispose();
         //view.addCarrier("1","2");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void citiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citiesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_citiesActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

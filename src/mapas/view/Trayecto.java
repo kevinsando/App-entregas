@@ -1,5 +1,7 @@
 package mapas.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kevin
@@ -11,6 +13,8 @@ public class Trayecto extends javax.swing.JFrame {
     public Trayecto(View v) {
         this.view = v;
         initComponents();
+        super.setTitle("Trayecto");
+        setDefaultCloseOperation(Trayecto.DISPOSE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -86,9 +90,13 @@ public class Trayecto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        view.addCarrier(origen.getText(), destino.getText());
+        if (view.getGraph().getVertex(origen.getText()) == null || view.getGraph().getVertex(destino.getText()) == null) {
+            JOptionPane.showMessageDialog(rootPane, "Origen o destino es incorrecto.");
+        } else {
+            view.addCarrier(origen.getText(), destino.getText());
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -266,11 +266,8 @@ public class Graph<V, E> {
                             caminitos += "De [" + (i + 1) + "--->" + (j + 1) + "] Irse por...[" + (i + 1) + ", " + caminos[i][j] + ", " + (j + 1) + "]\n";
                             Vertex<V> begin=getVertex((V) Integer.toString(i + 1));//PRIMER NODO
                             list.addLast(begin);
-                            List<Vertex<V>> encloche = getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length());//CODIGO INTERMEDIO
-                            Vertex<V> salvaTandas=encloche.getFirst();
-                            encloche.removeLast();
-                            encloche.append(buscarConexionNodos(grafo,(String)salvaTandas.getInfo(),(String)getVertex((V) Integer.toString(j + 1)).getInfo()));//ULTIMO DE ENCLOCHE,Y Ultimo nodo
-                            list.append(encloche);
+                            list.append(getVertex((V) ((V) caminos[i][j]+","), caminos[i][j].length()));//CODIGO INTERMEDIO
+                            list.addLast(getVertex((V)Integer.toString(j+1)));
                         }
                          }
                     }
